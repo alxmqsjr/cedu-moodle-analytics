@@ -1,4 +1,4 @@
-# Cedu Moodle Analytics (`local_ceduanalytics`)
+# Cedu Moodle Analytics
 
 Painel de gestão da plataforma EAD do **Cemaden Educação** (Centro Nacional de Monitoramento e Alertas de Desastres
 Naturais), como plugin local para o Moodle 4.5. Criado especificamente para esse projeto.
