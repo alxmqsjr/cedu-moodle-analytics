@@ -1,0 +1,4 @@
+# Keep LF line endings in every checkout (Moodle coding style).
+* text=auto eol=lf
+*.png binary
+*.svg text eol=lf

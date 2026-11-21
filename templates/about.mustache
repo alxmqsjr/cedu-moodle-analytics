@@ -1,0 +1,81 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/about
+
+    About the dashboard: identification, how to read it, guide by menu and glossary.
+
+    Example context (json):
+    {"logourl": "", "version": "0.10.0", "moodle": "4.5", "lastsnapshot": "",
+     "read": [{"title": "Filtros", "text": "..."}], "terms": [{"term": "Estudante", "def": "..."}],
+     "situations": [{"label": "Certificado", "help": "...", "key": "certified"}],
+     "groups": [{"name": "Estudantes", "pages": [{"id": "students", "title": "Visão geral", "question": "?",
+        "lines": [{"text": "..."}], "icon": "fa-users", "url": "#"}]}]}
+}}
+<section class="cea-card cea-about-hero">
+    <div class="cea-about-top">
+        {{#logourl}}<img src="{{logourl}}" alt="{{#str}} pluginname, local_ceduanalytics {{/str}}" class="cea-about-logo">{{/logourl}}
+        <p class="cea-about-lead">{{#str}} about_lead, local_ceduanalytics {{/str}}</p>
+    </div>
+    <div class="cea-about-info">
+        <p><strong>{{#str}} about_author, local_ceduanalytics {{/str}}:</strong> Alexandre Marques Almeida Junior · <a href="https://github.com/alxmqsjr" target="_blank" rel="noopener">github.com/alxmqsjr</a> · <a href="mailto:alxmqsjr@gmail.com">alxmqsjr@gmail.com</a></p>
+        <p><strong>{{#str}} about_version, local_ceduanalytics {{/str}}:</strong> {{version}} · Moodle {{moodle}}</p>
+        <p><strong>{{#str}} about_license, local_ceduanalytics {{/str}}:</strong> GNU GPL v3 {{#str}} about_license_text, local_ceduanalytics {{/str}}</p>
+        <p><strong>{{#str}} about_updated, local_ceduanalytics {{/str}}:</strong> {{lastsnapshot}}</p>
+    </div>
+</section>
+
+<nav class="cea-about-toc" aria-label="{{#str}} about_toc, local_ceduanalytics {{/str}}">
+    <a href="#cea-about-read">{{#str}} about_s_read, local_ceduanalytics {{/str}}</a>
+    <a href="#cea-about-pages">{{#str}} about_s_pages, local_ceduanalytics {{/str}}</a>
+    <a href="#cea-about-terms">{{#str}} about_s_terms, local_ceduanalytics {{/str}}</a>
+</nav>
+
+<section class="cea-card" id="cea-about-read">
+    <header class="cea-card-head"><h2>{{#str}} about_s_read, local_ceduanalytics {{/str}}</h2></header>
+    <div class="cea-about-stack">
+        {{#read}}<div class="cea-about-item"><h3>{{title}}</h3><p>{{text}}</p></div>{{/read}}
+    </div>
+</section>
+
+<section class="cea-card" id="cea-about-pages">
+    <header class="cea-card-head"><h2>{{#str}} about_s_pages, local_ceduanalytics {{/str}}</h2></header>
+    {{#groups}}
+        <h3 class="cea-subhead">{{name}}</h3>
+        <div class="cea-about-stack">
+            {{#pages}}
+                <div class="cea-about-item" id="cea-about-{{id}}">
+                    <h4><a href="{{url}}"><i class="fa-solid {{icon}}" aria-hidden="true"></i> {{title}}</a></h4>
+                    <p class="cea-muted"><em>{{question}}</em></p>
+                    <ul class="cea-about-lines">{{#lines}}<li>{{text}}</li>{{/lines}}</ul>
+                </div>
+            {{/pages}}
+        </div>
+    {{/groups}}
+</section>
+
+<section class="cea-card" id="cea-about-terms">
+    <header class="cea-card-head"><h2>{{#str}} about_s_terms, local_ceduanalytics {{/str}}</h2></header>
+    <dl class="cea-glossary">
+        {{#terms}}<div><dt>{{term}}</dt><dd>{{def}}</dd></div>{{/terms}}
+    </dl>
+    <h3 class="cea-subhead">{{#str}} about_situations, local_ceduanalytics {{/str}}</h3>
+    <p class="cea-help">{{#str}} about_situations_help, local_ceduanalytics {{/str}}</p>
+    <dl class="cea-glossary">
+        {{#situations}}<div><dt><span class="cea-badge cea-sit cea-sit-{{key}}">{{label}}</span></dt><dd>{{help}}</dd></div>{{/situations}}
+    </dl>
+</section>

@@ -1,0 +1,105 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/agenda
+
+    Agenda: month grid (default) or every date of the platform grouped by month.
+
+    Example context (json):
+    {"kpis": [], "views": [{"label": "Próximos", "active": true, "url": "#"}], "hasitems": true, "empty": "",
+     "months": [{"month": "Novembro 2026", "items": [{"day": "20", "weekday": "sex", "time": "10:00", "title": "Encontro",
+        "type": "Evento do site", "kind": "site", "meta": "10:00", "past": false, "today": true}]}],
+     "ismonth": false, "grid": {"title": "Novembro 2026", "prevurl": "#", "nexturl": "#", "todayurl": "#", "iscurrent": true,
+        "count": "3 datas", "weekdays": [{"short": "Dom", "long": "Domingo"}],
+        "kinds": [{"kind": "activity", "label": "Atividade"}],
+        "weeks": [{"days": [{"day": 1, "label": "1 nov", "inmonth": true, "today": false, "past": true, "hasitems": true,
+            "items": [{"text": "10:00 Encontro", "tip": "Evento do site", "kind": "site", "url": ""}],
+            "more": [], "morelabel": ""}]}]}
+    }
+}}
+{{> local_ceduanalytics/kpis }}
+
+<section class="cea-card">
+    <header class="cea-card-head cea-card-head-row">
+        <div>
+            <h2>{{#str}} page_agenda, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} ag_help, local_ceduanalytics {{/str}}</p>
+        </div>
+        <div class="cea-segmented" role="group" aria-label="{{#str}} page_agenda, local_ceduanalytics {{/str}}">
+            {{#views}}<a href="{{url}}" class="{{#active}}is-active{{/active}}" {{#active}}aria-current="true"{{/active}}>{{label}}</a>{{/views}}
+        </div>
+    </header>
+    {{#ismonth}}{{#grid}}
+        <div class="cea-agcal-nav">
+            <a class="btn btn-sm cea-btn-ghost" href="{{prevurl}}" aria-label="{{#str}} ag_prevmonth, local_ceduanalytics {{/str}}"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></a>
+            <h3 class="cea-agenda-month">{{title}}</h3>
+            <a class="btn btn-sm cea-btn-ghost" href="{{nexturl}}" aria-label="{{#str}} ag_nextmonth, local_ceduanalytics {{/str}}"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></a>
+            {{^iscurrent}}<a class="btn btn-sm cea-btn-ghost" href="{{todayurl}}">{{#str}} ag_today, local_ceduanalytics {{/str}}</a>{{/iscurrent}}
+            <span class="cea-muted cea-agcal-count">{{count}}</span>
+        </div>
+        <div class="cea-agcal" role="table" aria-label="{{title}}">
+            <div class="cea-agcal-head" role="row">
+                {{#weekdays}}<div role="columnheader"><abbr title="{{long}}">{{short}}</abbr></div>{{/weekdays}}
+            </div>
+            {{#weeks}}
+                <div class="cea-agcal-week" role="row">
+                    {{#days}}
+                        <div role="cell" class="cea-agcal-day{{^inmonth}} is-out{{/inmonth}}{{#today}} is-today{{/today}}{{#past}} is-past{{/past}}{{^hasitems}} is-empty{{/hasitems}}">
+                            <span class="cea-agcal-num"><span class="sr-only">{{label}}</span><span aria-hidden="true">{{day}}</span></span>
+                            {{#hasitems}}
+                                <ul>
+                                    {{#items}}<li class="cea-agcal-ev cea-agk-{{kind}}" title="{{tip}}">{{#url}}<a href="{{url}}">{{text}}</a>{{/url}}{{^url}}{{text}}{{/url}}</li>{{/items}}
+                                </ul>
+                                {{#morelabel}}
+                                    <details class="cea-agcal-more">
+                                        <summary>{{morelabel}}</summary>
+                                        <ul>
+                                            {{#more}}<li class="cea-agcal-ev cea-agk-{{kind}}" title="{{tip}}">{{#url}}<a href="{{url}}">{{text}}</a>{{/url}}{{^url}}{{text}}{{/url}}</li>{{/more}}
+                                        </ul>
+                                    </details>
+                                {{/morelabel}}
+                            {{/hasitems}}
+                        </div>
+                    {{/days}}
+                </div>
+            {{/weeks}}
+        </div>
+        <ul class="cea-agcal-legend">
+            {{#kinds}}<li><span class="cea-agcal-swatch cea-agk-{{kind}}" aria-hidden="true"></span>{{label}}</li>{{/kinds}}
+        </ul>
+    {{/grid}}{{/ismonth}}
+    {{^ismonth}}
+    {{#hasitems}}
+        {{#months}}
+            <h3 class="cea-agenda-month">{{month}}</h3>
+            <ol class="cea-agenda">
+                {{#items}}
+                    <li class="cea-agenda-item cea-agenda-{{kind}}{{#past}} is-past{{/past}}{{#today}} is-today{{/today}}">
+                        <div class="cea-agenda-date"><strong>{{day}}</strong><span>{{weekday}}</span></div>
+                        <div class="cea-agenda-body">
+                            <span class="cea-badge cea-badge-soft">{{type}}</span>
+                            <h4>{{{title}}}</h4>
+                            {{#meta}}<p class="cea-muted">{{{meta}}}</p>{{/meta}}
+                        </div>
+                    </li>
+                {{/items}}
+            </ol>
+        {{/months}}
+    {{/hasitems}}
+    {{^hasitems}}{{{empty}}}{{/hasitems}}
+    {{/ismonth}}
+</section>

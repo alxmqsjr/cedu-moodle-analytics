@@ -1,0 +1,61 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/filters
+
+    Filter panel (GET form, filters kept in the URL) and active filter chips.
+
+    Example context (json):
+    {"pageid": "home", "action": "#", "clearurl": "#", "hasactive": true, "hidden": [{"name": "id", "value": "1"}],
+     "active": [{"label": "UF", "value": "SP"}],
+     "fields": [{"name": "period", "label": "Período", "isperiod": true, "custom": false, "from": "", "to": "",
+                 "options": [{"value": "12m", "label": "Últimos 12 meses", "selected": true}]}]}
+}}
+<div class="cea-filterpanel" id="cea-filterpanel" hidden>
+    <form method="get" action="{{action}}" class="cea-filterform">
+        <input type="hidden" name="p" value="{{pageid}}">
+        {{#hidden}}<input type="hidden" name="{{name}}" value="{{value}}">{{/hidden}}
+        <div class="cea-filtergrid">
+            {{#fields}}
+                <div class="cea-field{{#wide}} cea-field-wide{{/wide}}">
+                    <label for="cea-f-{{name}}">{{label}}</label>
+                    <select class="custom-select" name="{{name}}" id="cea-f-{{name}}" {{#isperiod}}data-region="cea-period"{{/isperiod}}>
+                        {{#options}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/options}}
+                    </select>
+                </div>
+                {{#isperiod}}
+                    <div class="cea-field cea-field-dates" data-region="cea-dates" {{^custom}}hidden{{/custom}}>
+                        <label for="cea-f-from">{{#str}} filter_from, local_ceduanalytics {{/str}}</label>
+                        <input type="date" class="form-control" name="from" id="cea-f-from" value="{{from}}">
+                        <label for="cea-f-to">{{#str}} filter_to, local_ceduanalytics {{/str}}</label>
+                        <input type="date" class="form-control" name="to" id="cea-f-to" value="{{to}}">
+                    </div>
+                {{/isperiod}}
+            {{/fields}}
+        </div>
+        <div class="cea-filteractions">
+            <a class="btn cea-btn-ghost" href="{{clearurl}}">{{#str}} filters_clear, local_ceduanalytics {{/str}}</a>
+            <button type="submit" class="btn btn-primary">{{#str}} filters_apply, local_ceduanalytics {{/str}}</button>
+        </div>
+    </form>
+</div>
+{{#hasactive}}
+    <div class="cea-activefilters" aria-label="{{#str}} filters_active, local_ceduanalytics {{/str}}">
+        {{#active}}<span class="cea-chip"><strong>{{label}}:</strong> {{value}}</span>{{/active}}
+        <a class="cea-chip-clear" href="{{clearurl}}">{{#str}} filters_clear, local_ceduanalytics {{/str}}</a>
+    </div>
+{{/hasactive}}

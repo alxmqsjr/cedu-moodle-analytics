@@ -1,0 +1,193 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/shell
+
+    Dashboard shell: side menu, top bar, page header with actions and filters, content.
+
+    Example context (json):
+    {
+        "logourl": "https://example.com/logo.png", "pluginname": "Cedu Moodle Analytics", "homeurl": "#",
+        "menu": [{"id": "start", "label": "Início", "single": true, "expanded": true,
+                  "items": [{"id": "home", "label": "Início", "icon": "fa-house", "url": "#", "active": true,
+                             "counter": 0, "hascounter": false, "soon": true, "phase": 2}]}],
+        "backurl": "#", "version": "Versão 1.0", "title": "Início", "question": "O que está acontecendo?",
+        "group": "Início", "filters": {"hasfilters": false}, "hasexports": false, "exports": [],
+        "content": "<p>Content</p>", "userpicture": "", "userfullname": "Admin", "profileurl": "#", "stateparams": []
+    }
+}}
+<div class="local-ceduanalytics cea-app" id="cea-app" data-region="cea-app" data-newtab="{{#str}} opensinnewwindow, core {{/str}}">
+    <a class="cea-skip sr-only sr-only-focusable" href="#cea-content">{{#str}} skipcontent, local_ceduanalytics {{/str}}</a>
+
+    <aside class="cea-sidebar" id="cea-sidebar" aria-label="{{#str}} mainmenu, local_ceduanalytics {{/str}}">
+        <div class="cea-sidebar-top">
+            <a class="cea-brand" href="{{homeurl}}" title="{{pluginname}}">
+                <img src="{{logourl}}" alt="{{pluginname}}">
+            </a>
+            <button type="button" class="cea-iconbtn cea-sidebar-close" data-action="cea-close"
+                    aria-label="{{#str}} menu_close, local_ceduanalytics {{/str}}">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <nav class="cea-nav">
+            {{#menu}}
+                {{#single}}
+                    <ul class="cea-navlist cea-navlist-single">
+                        {{#items}}{{> local_ceduanalytics/menu_item }}{{/items}}
+                    </ul>
+                {{/single}}
+                {{^single}}
+                    <div class="cea-navgroup{{#expanded}} is-expanded{{/expanded}}" data-group="{{id}}">
+                        <button type="button" class="cea-navgroup-toggle" data-action="cea-group"
+                                aria-expanded="{{#expanded}}true{{/expanded}}{{^expanded}}false{{/expanded}}"
+                                aria-controls="cea-group-{{id}}">
+                            <span>{{label}}</span>
+                            <i class="fa-solid fa-chevron-down cea-chevron" aria-hidden="true"></i>
+                        </button>
+                        <ul class="cea-navlist" id="cea-group-{{id}}" {{^expanded}}hidden{{/expanded}}>
+                            {{#items}}{{> local_ceduanalytics/menu_item }}{{/items}}
+                        </ul>
+                    </div>
+                {{/single}}
+            {{/menu}}
+        </nav>
+
+        <div class="cea-sidebar-footer">
+            <a class="cea-back" href="{{backurl}}" data-region="cea-back">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {{#str}} backtomoodle, local_ceduanalytics {{/str}}
+            </a>
+            <div class="cea-credits">
+                <span class="cea-version">{{version}}</span>
+                <span>{{#str}} developedby, local_ceduanalytics, <a href="https://github.com/alxmqsjr" target="_blank" rel="noopener">Alexandre Marques</a> {{/str}}</span>
+            </div>
+        </div>
+    </aside>
+    <div class="cea-backdrop" data-action="cea-close" aria-hidden="true"></div>
+
+    <div class="cea-main">
+        <header class="cea-topbar">
+            <button type="button" class="cea-iconbtn cea-menubtn" data-action="cea-open" aria-controls="cea-sidebar"
+                    aria-label="{{#str}} menu_open, local_ceduanalytics {{/str}}">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="cea-search" data-region="cea-search">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" id="cea-search-input" autocomplete="off" role="combobox" aria-expanded="false"
+                       aria-controls="cea-search-results" aria-autocomplete="list"
+                       placeholder="{{#str}} search_placeholder, local_ceduanalytics {{/str}}"
+                       aria-label="{{#str}} search_placeholder, local_ceduanalytics {{/str}}"
+                       data-empty="{{#str}} search_empty, local_ceduanalytics {{/str}}"
+                       data-loading="{{#str}} search_loading, local_ceduanalytics {{/str}}"
+                       data-short="{{#str}} search_short, local_ceduanalytics {{/str}}">
+                <kbd>Ctrl K</kbd>
+                <ul class="cea-search-results" id="cea-search-results" role="listbox" hidden></ul>
+                <span class="sr-only" aria-live="polite" data-region="cea-search-status"></span>
+            </div>
+            <a class="cea-user" href="{{profileurl}}" title="{{userfullname}}">
+                {{{userpicture}}}
+                <span class="cea-user-name">{{userfullname}}</span>
+            </a>
+        </header>
+
+        <div class="cea-pagehead">
+            <nav aria-label="{{#str}} breadcrumb, local_ceduanalytics {{/str}}">
+                <ol class="cea-breadcrumb">
+                    <li><a href="{{homeurl}}">{{pluginname}}</a></li>
+                    {{#showgroup}}<li>{{group}}</li>{{/showgroup}}
+                    <li aria-current="page">{{title}}</li>
+                </ol>
+            </nav>
+            <div class="cea-pagehead-row">
+                <div class="cea-pagehead-text">
+                    <h1 class="cea-title">{{title}}</h1>
+                    <p class="cea-question">{{question}}</p>
+                </div>
+                <div class="cea-actions">
+                    {{#filters.hasfilters}}
+                        {{#showperiod}}<span class="cea-chip cea-chip-period" title="{{#str}} filter_period, local_ceduanalytics {{/str}}">
+                            <i class="fa-regular fa-calendar" aria-hidden="true"></i> {{filters.periodlabel}}
+                        </span>{{/showperiod}}
+                        {{! A link to the panel, so it also opens before the page JavaScript has loaded (CSS :target). }}
+                        <a href="#cea-filterpanel" role="button" class="btn cea-btn-ghost" data-action="cea-filters" aria-expanded="false"
+                                aria-controls="cea-filterpanel">
+                            <i class="fa-solid fa-filter" aria-hidden="true"></i> {{#str}} filters, local_ceduanalytics {{/str}}
+                            {{#filters.hasactive}}<span class="cea-counter">{{filters.activecount}}</span>{{/filters.hasactive}}
+                        </a>
+                    {{/filters.hasfilters}}
+                    <details class="cea-dropdown">
+                        <summary class="btn cea-btn-ghost">
+                            <i class="fa-regular fa-star" aria-hidden="true"></i> {{#str}} views, local_ceduanalytics {{/str}}
+                        </summary>
+                        <div class="cea-dropdown-menu cea-views">
+                            {{#hasviews}}
+                                <ul>
+                                    {{#views}}
+                                        <li class="{{#current}}is-current{{/current}}">
+                                            <a href="{{url}}"><strong>{{name}}</strong><small>{{page}}</small></a>
+                                            <form method="post" action="{{pageurl}}">
+                                                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                                                <input type="hidden" name="viewaction" value="delete">
+                                                <input type="hidden" name="viewid" value="{{id}}">
+                                                <button type="submit" class="cea-iconbtn cea-iconbtn-sm"
+                                                        data-confirm="{{#str}} views_delete_confirm, local_ceduanalytics, {{name}} {{/str}}"
+                                                        title="{{#str}} delete, core {{/str}}" aria-label="{{#str}} delete, core {{/str}}: {{name}}">
+                                                    <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    {{/views}}
+                                </ul>
+                            {{/hasviews}}
+                            {{^hasviews}}<p class="cea-help">{{#str}} views_none, local_ceduanalytics {{/str}}</p>{{/hasviews}}
+                            <form method="post" action="{{pageurl}}" class="cea-views-save">
+                                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                                <input type="hidden" name="viewaction" value="save">
+                                <label for="cea-viewname" class="sr-only">{{#str}} views_name, local_ceduanalytics {{/str}}</label>
+                                <input type="text" class="form-control form-control-sm" id="cea-viewname" name="viewname" maxlength="255"
+                                       required placeholder="{{#str}} views_name, local_ceduanalytics {{/str}}">
+                                <button type="submit" class="btn btn-primary btn-sm">{{#str}} views_save, local_ceduanalytics {{/str}}</button>
+                            </form>
+                        </div>
+                    </details>
+                    {{#hasexports}}
+                        <details class="cea-dropdown">
+                            <summary class="btn cea-btn-ghost">
+                                <i class="fa-solid fa-download" aria-hidden="true"></i> {{#str}} export, local_ceduanalytics {{/str}}
+                            </summary>
+                            <ul class="cea-dropdown-menu">
+                                {{#exports}}<li><a href="{{url}}">{{label}}</a></li>{{/exports}}
+                            </ul>
+                        </details>
+                    {{/hasexports}}
+                    <button type="button" class="btn cea-btn-ghost" data-action="cea-print" title="{{#str}} print, local_ceduanalytics {{/str}}">
+                        <i class="fa-solid fa-print" aria-hidden="true"></i><span class="sr-only">{{#str}} print, local_ceduanalytics {{/str}}</span>
+                    </button>
+                </div>
+            </div>
+
+            {{#filters.hasfilters}}
+                {{#filters}}{{> local_ceduanalytics/filters }}{{/filters}}
+            {{/filters.hasfilters}}
+        </div>
+
+        <main class="cea-content" id="cea-content" tabindex="-1">
+            <div id="user-notifications" class="cea-notifications">{{{notifications}}}</div>
+            {{{content}}}
+        </main>
+    </div>
+</div>

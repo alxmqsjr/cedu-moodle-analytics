@@ -1,0 +1,180 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/support
+
+    Students who need support: KPIs, queue chips, queue table, actions and effectiveness.
+
+    Example context (json):
+    {"kpis": [], "preview": "", "reasonchips": [], "levelchips": [], "statuschips": [], "table": {"hasrows": false, "id": "queue"},
+     "placeholders": [{"code": "{firstname}", "text": "o primeiro nome do estudante"}],
+     "canact": true, "formaction": "#", "sesskey": "x", "templates": [{"id": "free", "label": "Livre", "text": "", "selected": true}],
+     "responsibles": [{"id": 2, "name": "Admin"}], "statusoptions": [{"id": "resolved", "label": "Resolvido"}],
+     "effect": {"hasrows": false, "id": "effectiveness"}, "effecthelp": "", "currentuserid": 2}
+}}
+{{{preview}}}
+{{> local_ceduanalytics/kpis }}
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} sup_queue, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} sup_queue_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <div class="cea-chiprow">
+        <span class="cea-chiprow-label">{{#str}} col_reason, local_ceduanalytics {{/str}}</span>
+        <nav class="cea-sitchips" aria-label="{{#str}} col_reason, local_ceduanalytics {{/str}}">
+            {{#reasonchips}}
+                <a class="cea-sitchip cea-sitchip-{{key}}{{#active}} is-active{{/active}}" href="{{url}}" {{#help}}title="{{help}}"{{/help}}
+                   {{#active}}aria-current="true"{{/active}}>
+                    <span class="cea-sitchip-label">{{label}}</span><span class="cea-sitchip-count">{{count}}</span>
+                </a>
+            {{/reasonchips}}
+        </nav>
+    </div>
+    <div class="cea-chiprow">
+        <span class="cea-chiprow-label">{{#str}} col_level, local_ceduanalytics {{/str}}</span>
+        <nav class="cea-sitchips" aria-label="{{#str}} col_level, local_ceduanalytics {{/str}}">
+            {{#levelchips}}
+                <a class="cea-sitchip cea-sitchip-{{key}}{{#active}} is-active{{/active}}" href="{{url}}" {{#active}}aria-current="true"{{/active}}>
+                    <span class="cea-sitchip-label">{{label}}</span><span class="cea-sitchip-count">{{count}}</span>
+                </a>
+            {{/levelchips}}
+        </nav>
+    </div>
+    <div class="cea-chiprow">
+        <span class="cea-chiprow-label">{{#str}} col_fstatus, local_ceduanalytics {{/str}}</span>
+        <nav class="cea-sitchips" aria-label="{{#str}} col_fstatus, local_ceduanalytics {{/str}}">
+            {{#statuschips}}
+                <a class="cea-sitchip cea-sitchip-{{key}}{{#active}} is-active{{/active}}" href="{{url}}" {{#active}}aria-current="true"{{/active}}>
+                    <span class="cea-sitchip-label">{{label}}</span><span class="cea-sitchip-count">{{count}}</span>
+                </a>
+            {{/statuschips}}
+        </nav>
+    </div>
+
+    <div class="cea-toolbar">
+        {{#canact}}
+            <label class="cea-selectall">
+                <input type="checkbox" data-action="cea-selectall" data-target="cea-table-queue">
+                {{#str}} select_all, local_ceduanalytics {{/str}}
+            </label>
+            <span class="cea-help" data-region="cea-selcount" aria-live="polite"
+                  data-template="{{#str}} selected_count, local_ceduanalytics, __n__ {{/str}}"></span>
+        {{/canact}}
+        <label class="cea-tablesearch">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">{{#str}} table_filter, local_ceduanalytics {{/str}}</span>
+            <input type="search" class="form-control" data-region="cea-tablefilter" data-target="cea-table-queue"
+                   placeholder="{{#str}} table_filter, local_ceduanalytics {{/str}}">
+        </label>
+    </div>
+    <div class="cea-scroll">{{#table}}{{> local_ceduanalytics/table }}{{/table}}</div>
+</section>
+
+{{#canact}}
+<section class="cea-card cea-actions-card" id="cea-support-actions">
+    <header class="cea-card-head">
+        <h2>{{#str}} sup_actions, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} sup_actions_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <form method="post" action="{{formaction}}" id="cea-support-form" class="cea-support-form">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <div class="cea-support-grid">
+            <fieldset class="cea-support-compose">
+                <legend>{{#str}} sup_compose, local_ceduanalytics {{/str}}</legend>
+                <div class="cea-support-split">
+                    <div class="cea-support-fields">
+                        <div class="cea-radios" role="radiogroup" aria-label="{{#str}} sup_kind, local_ceduanalytics {{/str}}">
+                            <label><input type="radio" name="act" value="message" checked>
+                                <i class="fa-regular fa-envelope" aria-hidden="true"></i> {{#str}} kind_message, local_ceduanalytics {{/str}}</label>
+                            <label><input type="radio" name="act" value="note">
+                                <i class="fa-regular fa-note-sticky" aria-hidden="true"></i> {{#str}} kind_note, local_ceduanalytics {{/str}}</label>
+                        </div>
+                        <label for="cea-template">{{#str}} sup_template, local_ceduanalytics {{/str}}</label>
+                        <select id="cea-template" class="custom-select" data-region="cea-template" data-target="cea-text">
+                            {{#templates}}<option value="{{id}}" data-text="{{text}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/templates}}
+                        </select>
+                        <label for="cea-text">{{#str}} sup_text, local_ceduanalytics {{/str}}</label>
+                        <textarea id="cea-text" name="text" class="form-control" rows="7" maxlength="4000">{{#templates}}{{#selected}}{{text}}{{/selected}}{{/templates}}</textarea>
+                        <p class="cea-help">{{#str}} sup_placeholders, local_ceduanalytics {{/str}}</p>
+                        <label for="cea-notestate">{{#str}} sup_notestate, local_ceduanalytics {{/str}}</label>
+                        <select id="cea-notestate" name="notestate" class="custom-select">
+                            <option value="public">{{#str}} sup_notestate_public, local_ceduanalytics {{/str}}</option>
+                            <option value="draft">{{#str}} sup_notestate_draft, local_ceduanalytics {{/str}}</option>
+                        </select>
+                        <div>
+                            <button type="submit" name="mode" value="preview" class="btn btn-primary">
+                                <i class="fa-regular fa-eye" aria-hidden="true"></i> {{#str}} sup_preview_btn, local_ceduanalytics {{/str}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cea-placeholders">
+                        <h3>{{#str}} sup_ph_title, local_ceduanalytics {{/str}}</h3>
+                        <p class="cea-help">{{#str}} sup_ph_help, local_ceduanalytics {{/str}}</p>
+                        <dl>
+                            {{#placeholders}}<div><dt><code>{{code}}</code></dt><dd>{{text}}</dd></div>{{/placeholders}}
+                        </dl>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="cea-support-status">
+                <legend>{{#str}} sup_followup, local_ceduanalytics {{/str}}</legend>
+                <div class="cea-support-split">
+                    <div class="cea-support-fields">
+                        <label for="cea-newstatus">{{#str}} col_fstatus, local_ceduanalytics {{/str}}</label>
+                        <select id="cea-newstatus" name="newstatus" class="custom-select">
+                            <option value="">{{#str}} keep_unchanged, local_ceduanalytics {{/str}}</option>
+                            {{#statusoptions}}<option value="{{id}}">{{label}}</option>{{/statusoptions}}
+                        </select>
+                        <label for="cea-assignedto">{{#str}} col_responsible, local_ceduanalytics {{/str}}</label>
+                        <select id="cea-assignedto" name="assignedto" class="custom-select">
+                            <option value="-1">{{#str}} keep_unchanged, local_ceduanalytics {{/str}}</option>
+                            <option value="0">{{#str}} sup_noresponsible, local_ceduanalytics {{/str}}</option>
+                            {{#responsibles}}<option value="{{id}}">{{name}}</option>{{/responsibles}}
+                        </select>
+                        <div>
+                            <button type="submit" name="mode" value="apply" class="btn btn-secondary">
+                                <i class="fa-solid fa-check" aria-hidden="true"></i> {{#str}} sup_apply, local_ceduanalytics {{/str}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cea-placeholders">
+                        <h3>{{#str}} sup_fu_title, local_ceduanalytics {{/str}}</h3>
+                        <p class="cea-help">{{#str}} sup_fu_help, local_ceduanalytics {{/str}}</p>
+                        <dl>
+                            <div><dt>{{#str}} fstatus_open, local_ceduanalytics {{/str}}</dt><dd>{{#str}} sup_fu_open, local_ceduanalytics {{/str}}</dd></div>
+                            <div><dt>{{#str}} fstatus_contacted, local_ceduanalytics {{/str}}</dt><dd>{{#str}} sup_fu_contacted, local_ceduanalytics {{/str}}</dd></div>
+                            <div><dt>{{#str}} fstatus_resolved, local_ceduanalytics {{/str}}</dt><dd>{{#str}} sup_fu_resolved, local_ceduanalytics {{/str}}</dd></div>
+                            <div><dt>{{#str}} fstatus_dismissed, local_ceduanalytics {{/str}}</dt><dd>{{#str}} sup_fu_dismissed, local_ceduanalytics {{/str}}</dd></div>
+                            <div><dt>{{#str}} col_responsible, local_ceduanalytics {{/str}}</dt><dd>{{#str}} sup_fu_responsible, local_ceduanalytics {{/str}}</dd></div>
+                            <div><dt>{{#str}} sup_fu_reopen_title, local_ceduanalytics {{/str}}</dt><dd>{{#str}} sup_followup_help, local_ceduanalytics {{/str}}</dd></div>
+                        </dl>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</section>
+{{/canact}}
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} sup_effect, local_ceduanalytics {{/str}}</h2>
+        <p>{{effecthelp}}</p>
+    </header>
+    {{#effect}}{{> local_ceduanalytics/table }}{{/effect}}
+</section>

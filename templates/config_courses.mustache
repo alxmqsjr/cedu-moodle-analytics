@@ -1,0 +1,114 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/config_courses
+
+    Configuration: all courses, course lines and editions.
+
+    Example context (json):
+    {"nocriteria": true, "stats": [], "table": {"hasrows": false},
+     "formaction": "#", "sesskey": "x", "courserows": [], "lineedit": [], "newkinds": []}
+}}
+{{#nocriteria}}
+    <div class="cea-alert cea-alert-warn" role="alert">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <div>
+            <strong>{{#str}} alert_nocriteria_title, local_ceduanalytics {{/str}}</strong>
+            <p>{{#str}} alert_nocriteria_text, local_ceduanalytics {{/str}}</p>
+        </div>
+    </div>
+{{/nocriteria}}
+
+{{> local_ceduanalytics/stats }}
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} cfg_courses_table, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} cfg_courses_table_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    {{#table}}{{> local_ceduanalytics/table }}{{/table}}
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} cfg_edit_title, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} cfg_edit_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <form method="post" action="{{formaction}}">
+        <input type="hidden" name="sesskey" value="{{sesskey}}">
+        <input type="hidden" name="action" value="savelines">
+
+        <h3 class="cea-subtitle">{{#str}} cfg_lines_edit, local_ceduanalytics {{/str}}</h3>
+        <div class="cea-tablewrap">
+            <table class="cea-table cea-table-form">
+                <thead><tr>
+                    <th scope="col">{{#str}} cfg_line_name, local_ceduanalytics {{/str}}</th>
+                    <th scope="col">{{#str}} cfg_line_kind, local_ceduanalytics {{/str}}</th>
+                    <th scope="col" class="cea-num">{{#str}} cfg_line_courses, local_ceduanalytics {{/str}}</th>
+                </tr></thead>
+                <tbody>
+                    {{#lineedit}}
+                        <tr>
+                            <td><input type="text" class="form-control" name="linename[{{id}}]" value="{{name}}"
+                                       aria-label="{{#str}} cfg_line_name, local_ceduanalytics {{/str}}"></td>
+                            <td><select class="custom-select" name="linekind[{{id}}]" aria-label="{{#str}} cfg_line_kind, local_ceduanalytics {{/str}}">
+                                {{#kinds}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/kinds}}
+                            </select></td>
+                            <td class="cea-num">{{courses}}</td>
+                        </tr>
+                    {{/lineedit}}
+                    <tr class="cea-newrow">
+                        <td><input type="text" class="form-control" name="newline" placeholder="{{#str}} cfg_newline, local_ceduanalytics {{/str}}"
+                                   aria-label="{{#str}} cfg_newline, local_ceduanalytics {{/str}}"></td>
+                        <td><select class="custom-select" name="newlinekind" aria-label="{{#str}} cfg_line_kind, local_ceduanalytics {{/str}}">
+                            {{#newkinds}}<option value="{{value}}">{{label}}</option>{{/newkinds}}
+                        </select></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="cea-subtitle">{{#str}} cfg_assign_title, local_ceduanalytics {{/str}}</h3>
+        <div class="cea-tablewrap">
+            <table class="cea-table cea-table-form">
+                <thead><tr>
+                    <th scope="col">{{#str}} col_course, local_ceduanalytics {{/str}}</th>
+                    <th scope="col">{{#str}} col_type, local_ceduanalytics {{/str}}</th>
+                    <th scope="col">{{#str}} col_line, local_ceduanalytics {{/str}}</th>
+                    <th scope="col">{{#str}} col_edition, local_ceduanalytics {{/str}}</th>
+                </tr></thead>
+                <tbody>
+                    {{#courserows}}
+                        <tr>
+                            <td>{{name}} {{#manual}}<span class="cea-badge cea-badge-soft" title="{{#str}} cfg_manual_help, local_ceduanalytics {{/str}}">{{#str}} cfg_manual, local_ceduanalytics {{/str}}</span>{{/manual}}</td>
+                            <td>{{{typebadge}}}</td>
+                            <td><select class="custom-select" name="courseline[{{id}}]" aria-label="{{#str}} col_line, local_ceduanalytics {{/str}}: {{name}}">
+                                {{#options}}<option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>{{/options}}
+                            </select></td>
+                            <td><input type="text" class="form-control cea-input-sm" name="courseedition[{{id}}]" value="{{edition}}"
+                                       maxlength="50" aria-label="{{#str}} col_edition, local_ceduanalytics {{/str}}: {{name}}"></td>
+                        </tr>
+                    {{/courserows}}
+                </tbody>
+            </table>
+        </div>
+        <div class="cea-formactions">
+            <button type="submit" class="btn btn-primary">{{#str}} cfg_save, local_ceduanalytics {{/str}}</button>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,55 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/students
+
+    Students overview: situation chips, view switch and list.
+
+    Example context (json):
+    {"chips": [{"key": "all", "label": "Todas", "count": "10", "url": "#", "active": true, "help": ""}],
+     "summary": "10 estudantes", "viewstudents": true, "urlstudents": "#", "urlenrolments": "#",
+     "table": {"hasrows": false}, "situationhelp": ""}
+}}
+<nav class="cea-sitchips" aria-label="{{#str}} col_situation, local_ceduanalytics {{/str}}">
+    {{#chips}}
+        <a class="cea-sitchip cea-sitchip-{{key}}{{#active}} is-active{{/active}}" href="{{url}}" {{#help}}title="{{help}}"{{/help}}
+           {{#active}}aria-current="true"{{/active}}>
+            <span class="cea-sitchip-label">{{label}}</span>
+            <span class="cea-sitchip-count">{{count}}</span>
+        </a>
+    {{/chips}}
+</nav>
+{{#situationhelp}}<p class="cea-help cea-sithelp"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{situationhelp}}</p>{{/situationhelp}}
+
+<section class="cea-card">
+    <div class="cea-toolbar">
+        <div class="cea-segmented" role="group" aria-label="{{#str}} students_view, local_ceduanalytics {{/str}}">
+            <a href="{{urlstudents}}" class="{{#viewstudents}}is-active{{/viewstudents}}" {{#viewstudents}}aria-current="true"{{/viewstudents}}>
+                <i class="fa-solid fa-user" aria-hidden="true"></i> {{#str}} students_view_students, local_ceduanalytics {{/str}}</a>
+            <a href="{{urlenrolments}}" class="{{^viewstudents}}is-active{{/viewstudents}}" {{^viewstudents}}aria-current="true"{{/viewstudents}}>
+                <i class="fa-solid fa-list" aria-hidden="true"></i> {{#str}} students_view_enrolments, local_ceduanalytics {{/str}}</a>
+        </div>
+        <span class="cea-help">{{summary}}</span>
+        <label class="cea-tablesearch">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">{{#str}} table_filter, local_ceduanalytics {{/str}}</span>
+            <input type="search" class="form-control" data-region="cea-tablefilter" data-target="cea-table-{{table.id}}"
+                   placeholder="{{#str}} table_filter, local_ceduanalytics {{/str}}">
+        </label>
+    </div>
+    {{#table}}{{> local_ceduanalytics/table }}{{/table}}
+</section>

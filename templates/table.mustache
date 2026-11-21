@@ -1,0 +1,54 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/table
+
+    A dataset rendered as a sortable table.
+
+    Example context (json):
+    {"id": "courses", "title": "Cursos", "count": 1, "hasrows": true, "emptytext": "Sem dados", "sortable": true,
+     "headers": [{"label": "Curso", "numeric": false}, {"label": "Estudantes", "numeric": true}],
+     "rows": [{"class": "", "cells": [{"html": "Curso A", "numeric": false, "rowspan": 0}, {"html": "10", "numeric": true, "rowspan": 0}]}]}
+}}
+{{#hasrows}}
+<div class="cea-tablewrap">
+    <table class="cea-table" {{#sortable}}data-region="cea-sortable"{{/sortable}} id="cea-table-{{id}}">
+        <caption class="sr-only">{{title}}</caption>
+        <thead>
+            <tr>
+                {{#headers}}
+                    <th scope="col" class="{{#numeric}}cea-num{{/numeric}}" {{#sortable}}aria-sort="none"{{/sortable}}>
+                        {{#sortable}}<button type="button" class="cea-sort" data-action="cea-sort">{{label}}<i class="fa-solid fa-sort" aria-hidden="true"></i></button>{{/sortable}}
+                        {{^sortable}}{{label}}{{/sortable}}
+                    </th>
+                {{/headers}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#rows}}
+                <tr class="{{class}}">
+                    {{#cells}}<td class="{{#numeric}}cea-num{{/numeric}}{{#rowspan}} cea-merged{{/rowspan}}" {{#rowspan}}rowspan="{{rowspan}}"{{/rowspan}}>{{{html}}}</td>{{/cells}}
+                </tr>
+            {{/rows}}
+        </tbody>
+    </table>
+</div>
+<p class="cea-tablefoot">{{#str}} rows_count, local_ceduanalytics, {{count}} {{/str}}</p>
+{{/hasrows}}
+{{^hasrows}}
+    <p class="cea-tableempty"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{emptytext}}</p>
+{{/hasrows}}

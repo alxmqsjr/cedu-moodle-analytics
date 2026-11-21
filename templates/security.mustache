@@ -1,0 +1,95 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/security
+
+    Security: checks as alerts, failed logins, targeted usernames, IPs, privileged accounts and sign-ups.
+
+    Example context (json):
+    {"tabs": [], "kpis": [], "summary": "1 crítico", "release": "4.5",
+     "checks": [{"id": "lockout", "severity": "critical", "severitylabel": "Crítico", "icon": "fa-circle-exclamation",
+                 "title": "Bloqueio de conta", "text": "Desligado", "url": "#", "forced": false}],
+     "chart": "", "haschart": false, "chartempty": "", "unitlabel": "semana",
+     "usernames": {"hasrows": false, "id": "usernames"}, "ips": {"hasrows": false, "id": "ips"},
+     "privileged": {"hasrows": false, "id": "privileged"}, "signups": {"hasrows": false, "id": "signups"} }
+}}
+{{> local_ceduanalytics/tabs }}
+{{> local_ceduanalytics/caution }}
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} sec_checks, local_ceduanalytics {{/str}}</h2>
+        <p>{{summary}} · {{#str}} sec_checks_help, local_ceduanalytics, {{release}} {{/str}}</p>
+    </header>
+    <ul class="cea-checks">
+        {{#checks}}
+            <li class="cea-check cea-check-{{severity}}">
+                <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+                <div>
+                    <strong>{{title}}</strong> <span class="cea-badge cea-check-badge">{{severitylabel}}</span>
+                    {{#forced}}<span class="cea-badge cea-badge-soft" title="{{#str}} sec_forced_help, local_ceduanalytics {{/str}}">{{#str}} sec_forced, local_ceduanalytics {{/str}}</span>{{/forced}}
+                    <p>{{text}}</p>
+                </div>
+                {{#url}}<a class="btn cea-btn-ghost btn-sm" href="{{url}}">{{#str}} sec_fix, local_ceduanalytics {{/str}} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>{{/url}}
+            </li>
+        {{/checks}}
+    </ul>
+</section>
+
+{{> local_ceduanalytics/kpis }}
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} sec_chart, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} sec_chart_help, local_ceduanalytics, {{unitlabel}} {{/str}}</p>
+    </header>
+    {{#haschart}}<div class="cea-chart">{{{chart}}}</div>{{/haschart}}
+    {{^haschart}}{{{chartempty}}}{{/haschart}}
+</section>
+
+<div class="cea-grid-2">
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} sec_usernames, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} sec_usernames_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        <div class="cea-scroll">{{#usernames}}{{> local_ceduanalytics/table }}{{/usernames}}</div>
+    </section>
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} sec_ips, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} sec_ips_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        <div class="cea-scroll">{{#ips}}{{> local_ceduanalytics/table }}{{/ips}}</div>
+    </section>
+</div>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} sec_privileged, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} sec_privileged_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    {{#privileged}}{{> local_ceduanalytics/table }}{{/privileged}}
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} sec_signups, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} sec_signups_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    {{#signups}}{{> local_ceduanalytics/table }}{{/signups}}
+</section>

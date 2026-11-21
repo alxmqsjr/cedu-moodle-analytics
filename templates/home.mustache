@@ -1,0 +1,101 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/home
+
+    Home page.
+
+    Example context (json):
+    {"offseason": false, "offseasontext": "", "comparelabel": "", "kpis": [], "chart": "", "haschart": false,
+     "chartempty": "", "unitlabel": "por semana", "attention": [], "milestones": {"hasrows": false},
+     "ufbars": {"hasbars": false}, "courses": {"hasrows": false}, "remobilise": []}
+}}
+{{#offseason}}
+    <div class="cea-alert cea-alert-info cea-offseason">
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        <div>
+            <strong>{{#str}} home_offseason_title, local_ceduanalytics {{/str}}</strong>
+            <p>{{offseasontext}}</p>
+        </div>
+    </div>
+{{/offseason}}
+
+<p class="cea-compare"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> {{comparelabel}}</p>
+{{> local_ceduanalytics/kpis }}
+
+<div class="cea-grid-main">
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} home_activity, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} home_activity_help, local_ceduanalytics, {{unitlabel}} {{/str}}</p>
+        </header>
+        {{#haschart}}<div class="cea-chart">{{{chart}}}</div>{{/haschart}}
+        {{^haschart}}{{{chartempty}}}{{/haschart}}
+    </section>
+
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} home_attention, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} home_attention_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        <ul class="cea-attention">
+            {{#attention}}
+                <li class="cea-att cea-att-{{level}}">
+                    <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+                    <a href="{{url}}">{{text}}</a>
+                </li>
+            {{/attention}}
+        </ul>
+    </section>
+</div>
+
+<div class="cea-grid-2">
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} home_milestones, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} home_milestones_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        {{#milestones}}{{> local_ceduanalytics/table }}{{/milestones}}
+    </section>
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} home_ufs, local_ceduanalytics {{/str}}</h2>
+            <p>{{ufbars.coverage}}</p>
+        </header>
+        {{#ufbars}}{{> local_ceduanalytics/bars }}{{/ufbars}}
+    </section>
+</div>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} home_remobilise, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} home_remobilise_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <div class="cea-stats cea-stats-links">
+        {{#remobilise}}
+            <a class="cea-stat" href="{{url}}"><span class="cea-stat-value">{{value}}</span><span class="cea-stat-label">{{label}}</span></a>
+        {{/remobilise}}
+    </div>
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} home_courses, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} home_courses_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    {{#courses}}{{> local_ceduanalytics/table }}{{/courses}}
+</section>

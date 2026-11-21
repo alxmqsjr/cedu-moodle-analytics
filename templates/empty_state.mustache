@@ -1,0 +1,30 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/empty_state
+
+    Explains why a block or page has no data, and what to do.
+
+    Example context (json):
+    {"icon": "fa-chart-line", "title": "Sem dados", "text": "Explicação.", "note": "", "large": false}
+}}
+<div class="cea-empty{{#large}} cea-empty-large{{/large}}" role="status">
+    <div class="cea-empty-icon"><i class="fa-solid {{icon}}" aria-hidden="true"></i></div>
+    <h2 class="cea-empty-title">{{title}}</h2>
+    <p class="cea-empty-text">{{text}}</p>
+    {{#note}}<p class="cea-empty-note">{{note}}</p>{{/note}}
+</div>

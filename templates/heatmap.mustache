@@ -1,0 +1,50 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/heatmap
+
+    Day × hour heatmap as a real table (accessible: every cell has its value).
+
+    Example context (json):
+    {"hasdata": true, "hours": [{"label": "00", "show": true}],
+     "rows": [{"day": "Seg", "cells": [{"value": "10", "level": 3, "hour": "00"}]}]}
+}}
+{{#hasdata}}
+<div class="cea-tablewrap cea-heatwrap">
+    <table class="cea-heatmap">
+        <caption class="sr-only">{{#str}} part_heatmap, local_ceduanalytics {{/str}}</caption>
+        <thead><tr><th scope="col"><span class="sr-only">{{#str}} day, core {{/str}}</span></th>
+            {{#hours}}<th scope="col">{{#show}}{{label}}h{{/show}}{{^show}}<span class="sr-only">{{label}}h</span>{{/show}}</th>{{/hours}}</tr></thead>
+        <tbody>
+            {{#rows}}
+                <tr>
+                    <th scope="row">{{day}}</th>
+                    {{#cells}}<td class="cea-heat-{{level}}" title="{{day}} {{hour}}h: {{value}}"><span class="sr-only">{{value}}</span></td>{{/cells}}
+                </tr>
+            {{/rows}}
+        </tbody>
+    </table>
+</div>
+<div class="cea-heatlegend" aria-hidden="true">
+    <span>{{#str}} heat_less, local_ceduanalytics {{/str}}</span>
+    <i class="cea-heat-0"></i><i class="cea-heat-1"></i><i class="cea-heat-2"></i><i class="cea-heat-3"></i><i class="cea-heat-4"></i><i class="cea-heat-5"></i>
+    <span>{{#str}} heat_more, local_ceduanalytics {{/str}}</span>
+</div>
+{{/hasdata}}
+{{^hasdata}}
+    <p class="cea-tableempty"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{#str}} empty_activity_text, local_ceduanalytics {{/str}}</p>
+{{/hasdata}}

@@ -1,0 +1,56 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/kpis
+
+    KPI tiles: value, variation against the comparison period, help, sparkline and link to the list behind.
+
+    Example context (json):
+    {"kpis": [{"key": "students", "label": "Estudantes", "help": "Quantos", "value": "431", "hasdelta": true,
+               "delta": {"text": "+12%", "direction": "up", "good": true, "title": "Período anterior: 384"},
+               "url": "#", "spark": "", "lowconf": false, "note": ""}]}
+}}
+<div class="cea-kpis">
+    {{#kpis}}
+        <div class="cea-kpi cea-kpi-{{key}}">
+            <div class="cea-kpi-head">
+                <span class="cea-kpi-label">{{label}}</span>
+                <span class="cea-info" tabindex="0" role="note" title="{{help}}" aria-label="{{help}}">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="cea-kpi-body">
+                {{#url}}<a class="cea-kpi-value" href="{{url}}">{{value}}</a>{{/url}}
+                {{^url}}<span class="cea-kpi-value">{{value}}</span>{{/url}}
+                {{#hasdelta}}
+                    <span class="cea-delta cea-delta-{{delta.direction}} {{#delta.good}}is-good{{/delta.good}}{{^delta.good}}is-bad{{/delta.good}}"
+                          title="{{delta.title}}">
+                        {{#delta}}<i class="fa-solid {{icon}}" aria-hidden="true"></i> {{text}}{{/delta}}
+                        <span class="sr-only">{{delta.title}}</span>
+                    </span>
+                {{/hasdelta}}
+            </div>
+            {{#note}}<span class="cea-kpi-note">{{note}}</span>{{/note}}
+            {{#lowconf}}
+                <span class="cea-lowconf" title="{{#str}} lowconf_help, local_ceduanalytics {{/str}}">
+                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> {{#str}} lowconf, local_ceduanalytics {{/str}}
+                </span>
+            {{/lowconf}}
+            {{{spark}}}
+        </div>
+    {{/kpis}}
+</div>

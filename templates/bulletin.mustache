@@ -1,0 +1,80 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/bulletin
+
+    Printable executive bulletin of the period.
+
+    Example context (json):
+    {"sitename": "Cemaden Educação", "logourl": "", "periodlabel": "Últimos 12 meses", "compare": "", "filters": [],
+     "hasfilters": false, "generated": "", "numbers": [{"label": "Estudantes", "value": "10", "hasdelta": false, "prev": ""}],
+     "chart": "", "haschart": false, "ufs": {"hasbars": false}, "ufnote": "", "segments": {"hasbars": false},
+     "courses": {"hasrows": false, "id": "bcourses"}, "backurl": "#"}
+}}
+<div class="cea-bulletin-actions">
+    <a class="btn cea-btn-ghost" href="{{backurl}}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {{#str}} page_reports, local_ceduanalytics {{/str}}</a>
+    <button type="button" class="btn btn-primary" data-action="cea-print"><i class="fa-solid fa-print" aria-hidden="true"></i> {{#str}} rep_print, local_ceduanalytics {{/str}}</button>
+</div>
+
+<article class="cea-bulletin">
+    <header class="cea-bulletin-head">
+        {{#logourl}}<img src="{{logourl}}" alt="" class="cea-bulletin-logo">{{/logourl}}
+        <div>
+            <p class="cea-bulletin-kicker">{{sitename}}</p>
+            <h2>{{#str}} rep_bulletin, local_ceduanalytics {{/str}} · {{periodlabel}}</h2>
+            <p class="cea-muted">{{compare}}</p>
+            {{#hasfilters}}<p class="cea-muted">{{#str}} rep_b_filters, local_ceduanalytics {{/str}} {{#filters}}<span class="cea-badge cea-badge-soft">{{label}}: {{value}}</span> {{/filters}}</p>{{/hasfilters}}
+        </div>
+    </header>
+
+    <section class="cea-bulletin-numbers">
+        {{#numbers}}
+            <div class="cea-bulletin-number">
+                <span class="cea-bulletin-label">{{label}}</span>
+                <strong>{{value}}</strong>
+                {{#hasdelta}}<span class="cea-delta cea-delta-{{delta.direction}} {{#delta.good}}is-good{{/delta.good}}{{^delta.good}}is-bad{{/delta.good}}">{{delta.text}}</span>{{/hasdelta}}
+                {{#prev}}<small class="cea-muted">{{#str}} rep_b_prev, local_ceduanalytics, {{prev}} {{/str}}</small>{{/prev}}
+            </div>
+        {{/numbers}}
+    </section>
+
+    {{#haschart}}
+    <section class="cea-bulletin-section">
+        <h3>{{#str}} rep_b_timeline, local_ceduanalytics {{/str}}</h3>
+        <div class="cea-chart">{{{chart}}}</div>
+    </section>
+    {{/haschart}}
+
+    <div class="cea-grid-2">
+        <section class="cea-bulletin-section">
+            <h3>{{#str}} rep_b_reach, local_ceduanalytics {{/str}}</h3>
+            {{#ufs}}{{> local_ceduanalytics/bars }}{{/ufs}}
+            <p class="cea-help">{{ufnote}}</p>
+        </section>
+        <section class="cea-bulletin-section">
+            <h3>{{#str}} rep_b_audience, local_ceduanalytics {{/str}}</h3>
+            {{#segments}}{{> local_ceduanalytics/bars }}{{/segments}}
+        </section>
+    </div>
+
+    <section class="cea-bulletin-section">
+        <h3>{{#str}} rep_b_courses, local_ceduanalytics {{/str}}</h3>
+        {{#courses}}{{> local_ceduanalytics/table }}{{/courses}}
+    </section>
+
+    <footer class="cea-bulletin-foot cea-muted">{{generated}}</footer>
+</article>

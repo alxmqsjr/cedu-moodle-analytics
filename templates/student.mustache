@@ -1,0 +1,86 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/student
+
+    Student profile.
+
+    Example context (json):
+    {"picture": "", "fullname": "Ana", "dualmark": "", "email": "a@example.com", "username": "ana", "auth": "manual", "suspended": false,
+     "uf": "SP", "ufsource": "Declarada", "city": "", "institution": "", "jobtitle": "", "segment": "", "created": "",
+     "firstaccess": "", "lastaccess": "", "profilefields": [], "kpis": [], "contacts": [], "chart": "", "haschart": false,
+     "chartempty": "", "table": {"hasrows": false}, "links": []}
+}}
+<section class="cea-card cea-profile">
+    <div class="cea-profile-main">
+        <div class="cea-profile-pic">{{{picture}}}</div>
+        <div class="cea-profile-id">
+            <h2>{{fullname}}{{{dualmark}}} {{#suspended}}<span class="cea-badge cea-badge-danger">{{#str}} suspended, core {{/str}}</span>{{/suspended}}</h2>
+            <p class="cea-muted"><i class="fa-regular fa-envelope" aria-hidden="true"></i> {{email}} · {{username}} · {{auth}}</p>
+            <div class="cea-profile-links">
+                {{#links}}<a class="btn cea-btn-ghost btn-sm" href="{{url}}"><i class="fa-solid {{icon}}" aria-hidden="true"></i> {{label}}</a>{{/links}}
+            </div>
+        </div>
+    </div>
+    <dl class="cea-dl cea-dl-grid">
+        <dt>{{#str}} col_uf, local_ceduanalytics {{/str}}</dt><dd>{{uf}} <small class="cea-muted">({{ufsource}})</small></dd>
+        <dt>{{#str}} col_city, local_ceduanalytics {{/str}}</dt><dd>{{city}}{{^city}}—{{/city}}</dd>
+        <dt>{{#str}} col_institution, local_ceduanalytics {{/str}}</dt><dd>{{institution}}{{^institution}}—{{/institution}}</dd>
+        <dt>{{#str}} col_jobtitle_raw, local_ceduanalytics {{/str}}</dt><dd>{{jobtitle}}{{^jobtitle}}—{{/jobtitle}}</dd>
+        <dt>{{#str}} col_segment, local_ceduanalytics {{/str}}</dt><dd>{{segment}}</dd>
+        <dt>{{#str}} st_created, local_ceduanalytics {{/str}}</dt><dd>{{created}}</dd>
+        <dt>{{#str}} st_firstaccess, local_ceduanalytics {{/str}}</dt><dd>{{firstaccess}}</dd>
+        <dt>{{#str}} st_lastaccess, local_ceduanalytics {{/str}}</dt><dd>{{lastaccess}}</dd>
+    </dl>
+</section>
+
+{{> local_ceduanalytics/kpis }}
+
+<div class="cea-grid-main">
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} st_activity, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} st_activity_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        {{#haschart}}<div class="cea-chart">{{{chart}}}</div>{{/haschart}}
+        {{^haschart}}{{{chartempty}}}{{/haschart}}
+    </section>
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} st_contacts, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} st_contacts_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        <dl class="cea-dl">
+            {{#contacts}}<dt>{{label}}</dt><dd>{{value}} <small class="cea-muted">· {{last}}</small></dd>{{/contacts}}
+        </dl>
+    </section>
+</div>
+
+<section class="cea-card">
+    <header class="cea-card-head"><h2>{{#str}} student_enrolments, local_ceduanalytics {{/str}}</h2></header>
+    {{#table}}{{> local_ceduanalytics/table }}{{/table}}
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} st_profilefields, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} st_profilefields_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <dl class="cea-dl cea-dl-grid">
+        {{#profilefields}}<dt>{{label}}</dt><dd>{{{value}}}</dd>{{/profilefields}}
+    </dl>
+</section>

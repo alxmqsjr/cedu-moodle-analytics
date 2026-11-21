@@ -1,0 +1,39 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/bars
+
+    Horizontal bar list (also readable as a list by screen readers).
+
+    Example context (json):
+    {"hasbars": true, "tone": "blue", "bars": [{"label": "SP", "value": 10, "valuetext": "10", "pct": "50%", "width": 100, "url": "#",
+     "note": "", "muted": false}]}
+}}
+{{#hasbars}}
+<ul class="cea-bars{{#tone}} cea-bars-{{tone}}{{/tone}}">
+    {{#bars}}
+        <li class="cea-bar{{#muted}} is-muted{{/muted}}">
+            <span class="cea-bar-label">{{#url}}<a href="{{url}}">{{label}}</a>{{/url}}{{^url}}{{label}}{{/url}}</span>
+            <span class="cea-bar-track" aria-hidden="true"><span class="cea-bar-fill" style="width: {{width}}%"></span></span>
+            <span class="cea-bar-value">{{valuetext}}{{#pct}} <small>({{pct}})</small>{{/pct}}</span>
+        </li>
+    {{/bars}}
+</ul>
+{{/hasbars}}
+{{^hasbars}}
+    <p class="cea-tableempty"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{#str}} empty_generic, local_ceduanalytics {{/str}}</p>
+{{/hasbars}}

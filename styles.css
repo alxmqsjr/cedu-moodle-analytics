@@ -1,0 +1,3957 @@
+/* Cedu EAD Analytics — every rule is scoped to .local-ceduanalytics or to the plugin body class. */
+
+/* ---------- Tokens ---------- */
+.local-ceduanalytics {
+    --cea-navy: #062e6b;
+    --cea-navy-600: #0b3f8c;
+    --cea-navy-050: #eaf0f9;
+    --cea-orange: #fb9a00;
+    --cea-orange-050: #fff4e0;
+    --cea-green: #43b000;
+    --cea-green-700: #2f7d00;
+    --cea-green-050: #ecf8e3;
+    --cea-blue: #0096ff;
+    --cea-blue-050: #e5f4ff;
+    --cea-red: #c62828;
+    --cea-red-050: #fdecec;
+    --cea-bg: #f4f6fa;
+    --cea-surface: #fff;
+    --cea-border: #e2e7ef;
+    --cea-text: #1d2939;
+    --cea-muted: #5f6b7d;
+    --cea-radius: 12px;
+    --cea-radius-sm: 8px;
+    --cea-shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+    --cea-sidebar: 320px;
+    color: var(--cea-text);
+}
+
+/* ---------- Page frame (embedded layout) ---------- */
+body.local-ceduanalytics-body {
+    background: #f4f6fa;
+    overflow-x: hidden;
+}
+
+body.local-ceduanalytics-body #page,
+body.local-ceduanalytics-body .embedded-main {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    width: 100%;
+}
+
+body.local-ceduanalytics-body .embedded-blocks {
+    display: none;
+}
+
+.local-ceduanalytics.cea-app {
+    display: flex;
+    min-height: 100vh;
+    background: var(--cea-bg);
+    font-size: .9375rem;
+}
+
+.local-ceduanalytics a {
+    color: var(--cea-navy-600);
+}
+
+.local-ceduanalytics :focus-visible {
+    outline: 3px solid var(--cea-blue);
+    outline-offset: 2px;
+}
+
+/* ---------- Sidebar ---------- */
+.local-ceduanalytics .cea-sidebar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 var(--cea-sidebar);
+    width: var(--cea-sidebar);
+    height: 100vh;
+    background: var(--cea-surface);
+    border-right: 1px solid var(--cea-border);
+    z-index: 1040;
+}
+
+.local-ceduanalytics .cea-sidebar-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 12px;
+}
+
+.local-ceduanalytics .cea-brand img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 190px;
+    height: auto;
+}
+
+.local-ceduanalytics .cea-iconbtn.cea-sidebar-close {
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    display: none;
+}
+
+.local-ceduanalytics .cea-nav {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 8px 12px 16px;
+    scrollbar-width: thin;
+}
+
+.local-ceduanalytics .cea-navgroup {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-navgroup-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 10px;
+    border: 0;
+    background: none;
+    color: #0d1117;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: var(--cea-radius-sm);
+}
+
+.local-ceduanalytics .cea-navgroup-toggle:hover {
+    color: var(--cea-navy);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-chevron {
+    font-size: .7rem;
+    transition: transform .2s ease;
+}
+
+.local-ceduanalytics .cea-navgroup:not(.is-expanded) .cea-chevron {
+    transform: rotate(-90deg);
+}
+
+.local-ceduanalytics .cea-navlist {
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 0;
+}
+
+.local-ceduanalytics .cea-navlink {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    margin: 1px 0;
+    border-radius: var(--cea-radius-sm);
+    color: var(--cea-text);
+    text-decoration: none;
+    line-height: 1.25;
+}
+
+.local-ceduanalytics .cea-navlink:hover {
+    background: var(--cea-bg);
+    color: var(--cea-navy);
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-navlink.is-active {
+    background: var(--cea-navy-050);
+    color: var(--cea-navy);
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-navlink.is-active::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 6px;
+    bottom: 6px;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+    background: var(--cea-green);
+}
+
+.local-ceduanalytics .cea-navicon {
+    width: 18px;
+    text-align: center;
+    color: var(--cea-navy-600);
+    opacity: .85;
+}
+
+.local-ceduanalytics .cea-navlabel {
+    flex: 1 1 auto;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-counter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--cea-orange);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-soon {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--cea-bg);
+    border: 1px solid var(--cea-border);
+    color: var(--cea-muted);
+    font-size: .65rem;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-sidebar-footer {
+    padding: 14px 20px 18px;
+    border-top: 1px solid var(--cea-border);
+    font-size: .8rem;
+}
+
+.local-ceduanalytics a.cea-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-navy);
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.local-ceduanalytics a.cea-back:hover,
+.local-ceduanalytics a.cea-back:focus {
+    background: var(--cea-navy-600);
+    color: #fff;
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--cea-muted);
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-credits a {
+    color: var(--cea-navy);
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-backdrop {
+    display: none;
+}
+
+/* ---------- Main column ---------- */
+.local-ceduanalytics .cea-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.local-ceduanalytics .cea-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 64px;
+    padding: 0 32px;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-iconbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: var(--cea-radius-sm);
+    background: none;
+    color: var(--cea-navy);
+    font-size: 1.1rem;
+}
+
+.local-ceduanalytics .cea-iconbtn:hover {
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-iconbtn.cea-menubtn {
+    display: none;
+}
+
+.local-ceduanalytics .cea-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    max-width: 560px;
+    height: 40px;
+    padding: 0 12px;
+    gap: 10px;
+    border: 1px solid var(--cea-border);
+    border-radius: 999px;
+    background: var(--cea-bg);
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-search input {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--cea-text);
+    outline: none;
+}
+
+.local-ceduanalytics .cea-search kbd {
+    padding: 2px 6px;
+    border: 1px solid var(--cea-border);
+    border-radius: 6px;
+    background: var(--cea-surface);
+    color: var(--cea-muted);
+    font-size: .7rem;
+    box-shadow: none;
+}
+
+.local-ceduanalytics .cea-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    color: var(--cea-text);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-user img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin: 0;
+}
+
+/* ---------- Page header ---------- */
+.local-ceduanalytics .cea-pagehead {
+    padding: 24px 32px 8px;
+}
+
+.local-ceduanalytics .cea-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 8px;
+    padding: 0;
+    list-style: none;
+    font-size: .8rem;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-breadcrumb li + li::before {
+    content: "›";
+    margin-right: 6px;
+    color: #a0aab8;
+}
+
+.local-ceduanalytics .cea-pagehead-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.local-ceduanalytics .cea-title {
+    margin: 0;
+    color: var(--cea-navy);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+
+.local-ceduanalytics .cea-question {
+    margin: 4px 0 0;
+    color: var(--cea-muted);
+    font-size: 1rem;
+}
+
+.local-ceduanalytics .cea-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.local-ceduanalytics .btn {
+    border-radius: var(--cea-radius-sm);
+    font-weight: 600;
+}
+
+.local-ceduanalytics .btn-primary {
+    background: var(--cea-navy);
+    border-color: var(--cea-navy);
+    color: #fff;
+}
+
+.local-ceduanalytics .btn-primary:hover,
+.local-ceduanalytics .btn-primary:focus {
+    background: var(--cea-navy-600);
+    border-color: var(--cea-navy-600);
+}
+
+.local-ceduanalytics .cea-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-btn-ghost:hover {
+    background: var(--cea-navy-050);
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    color: var(--cea-text);
+    font-size: .8rem;
+}
+
+.local-ceduanalytics .cea-chip-period {
+    background: var(--cea-navy-050);
+    border-color: transparent;
+    color: var(--cea-navy);
+    font-weight: 600;
+}
+
+/* Dropdown (details/summary) */
+.local-ceduanalytics .cea-dropdown {
+    position: relative;
+}
+
+.local-ceduanalytics .cea-dropdown summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.local-ceduanalytics .cea-dropdown summary::-webkit-details-marker {
+    display: none;
+}
+
+.local-ceduanalytics .cea-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    z-index: 1050;
+    min-width: 260px;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    box-shadow: 0 10px 30px rgba(16, 24, 40, .12);
+}
+
+.local-ceduanalytics .cea-dropdown-menu a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: var(--cea-text);
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-dropdown-menu a:hover {
+    background: var(--cea-bg);
+}
+
+/* ---------- Filters ---------- */
+.local-ceduanalytics .cea-filterpanel {
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+    box-shadow: var(--cea-shadow);
+}
+
+.local-ceduanalytics .cea-filtergrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px 16px;
+}
+
+.local-ceduanalytics .cea-field label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--cea-muted);
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.local-ceduanalytics .cea-field-wide {
+    grid-column: span 2;
+}
+
+.local-ceduanalytics .cea-field-dates {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 6px 8px;
+}
+
+.local-ceduanalytics .cea-field-dates[hidden] {
+    display: none;
+}
+
+.local-ceduanalytics .cea-field-dates label {
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-filteractions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.local-ceduanalytics .cea-activefilters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.local-ceduanalytics .cea-chip-clear {
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+/* ---------- Content ---------- */
+.local-ceduanalytics .cea-content {
+    padding: 16px 32px 40px;
+    outline: none;
+}
+
+.local-ceduanalytics .cea-card {
+    margin-bottom: 20px;
+    padding: 20px 22px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+    box-shadow: var(--cea-shadow);
+}
+
+.local-ceduanalytics .cea-card-head {
+    margin-bottom: 14px;
+}
+
+.local-ceduanalytics .cea-card-head h2 {
+    margin: 0;
+    color: var(--cea-navy);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-card-head p {
+    margin: 4px 0 0;
+    color: var(--cea-muted);
+    font-size: .875rem;
+}
+
+.local-ceduanalytics .cea-subtitle {
+    margin: 18px 0 8px;
+    color: var(--cea-navy);
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.local-ceduanalytics .cea-grid-2 > .cea-card {
+    margin-bottom: 20px;
+}
+
+.local-ceduanalytics .cea-help {
+    color: var(--cea-muted);
+    font-size: .82rem;
+}
+
+.local-ceduanalytics .cea-muted {
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-warn-text {
+    color: #b25e00;
+    font-weight: 600;
+}
+
+/* Stats */
+.local-ceduanalytics .cea-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.local-ceduanalytics .cea-stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px 18px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+    box-shadow: var(--cea-shadow);
+    overflow: hidden;
+}
+
+.local-ceduanalytics .cea-stat::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: var(--cea-navy);
+    opacity: .9;
+}
+
+.local-ceduanalytics .cea-stat-track::after {
+    background: var(--cea-blue);
+}
+
+.local-ceduanalytics .cea-stat-standalone::after {
+    background: var(--cea-green);
+}
+
+.local-ceduanalytics .cea-stat-model::after {
+    background: var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-stat-empty::after {
+    background: #a0aab8;
+}
+
+.local-ceduanalytics .cea-stat-warn::after {
+    background: var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-stat-value {
+    color: var(--cea-navy);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.local-ceduanalytics .cea-stat-label {
+    color: var(--cea-muted);
+    font-size: .82rem;
+}
+
+/* Badges */
+.local-ceduanalytics .cea-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.local-ceduanalytics .cea-type-track,
+.local-ceduanalytics .cea-kind-track {
+    background: var(--cea-blue-050);
+    color: #0068b3;
+}
+
+.local-ceduanalytics .cea-type-standalone,
+.local-ceduanalytics .cea-kind-standalone {
+    background: var(--cea-green-050);
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-type-model,
+.local-ceduanalytics .cea-kind-model {
+    background: var(--cea-orange-050);
+    color: #a35f00;
+}
+
+.local-ceduanalytics .cea-type-empty,
+.local-ceduanalytics .cea-badge-soft {
+    background: #eef1f5;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-badge-danger {
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+}
+
+/* Alerts */
+.local-ceduanalytics .cea-alert {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border-radius: var(--cea-radius);
+    border: 1px solid transparent;
+}
+
+.local-ceduanalytics .cea-alert > .fa-solid {
+    margin-top: 3px;
+    font-size: 1.1rem;
+}
+
+.local-ceduanalytics .cea-alert p {
+    margin: 2px 0 0;
+}
+
+.local-ceduanalytics .cea-alert-warn {
+    background: var(--cea-orange-050);
+    border-color: #ffd699;
+    color: #6b3d00;
+}
+
+.local-ceduanalytics .cea-alert-warn > .fa-solid {
+    color: var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-alert-info {
+    background: var(--cea-blue-050);
+    border-color: #b3defe;
+    color: #0b3a5f;
+}
+
+.local-ceduanalytics .cea-alert-info > .fa-solid {
+    color: var(--cea-blue);
+}
+
+/* Tables */
+.local-ceduanalytics .cea-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+}
+
+.local-ceduanalytics .cea-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.local-ceduanalytics .cea-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font-size: .875rem;
+}
+
+.local-ceduanalytics .cea-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--cea-border);
+    color: var(--cea-muted);
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.local-ceduanalytics .cea-table-form th {
+    padding: 10px 12px;
+}
+
+.local-ceduanalytics .cea-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    justify-content: flex-start;
+}
+
+.local-ceduanalytics th.cea-num .cea-sort {
+    justify-content: flex-end;
+}
+
+.local-ceduanalytics .cea-sort .fa-solid {
+    opacity: .35;
+    font-size: .7rem;
+}
+
+.local-ceduanalytics th[aria-sort="ascending"] .cea-sort .fa-solid,
+.local-ceduanalytics th[aria-sort="descending"] .cea-sort .fa-solid {
+    opacity: 1;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eef1f5;
+    vertical-align: middle;
+}
+
+.local-ceduanalytics .cea-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.local-ceduanalytics .cea-table tbody tr:hover td {
+    background: #f9fbfe;
+}
+
+.local-ceduanalytics .cea-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.local-ceduanalytics .cea-table th.cea-num {
+    text-align: right;
+}
+
+.local-ceduanalytics .cea-newrow td {
+    background: #fbfcfe;
+}
+
+.local-ceduanalytics .cea-input-sm {
+    max-width: 140px;
+}
+
+.local-ceduanalytics .cea-input-xs {
+    max-width: 90px;
+    margin-left: auto;
+}
+
+.local-ceduanalytics .cea-tablefoot {
+    margin: 8px 2px 0;
+    color: var(--cea-muted);
+    font-size: .8rem;
+}
+
+.local-ceduanalytics .cea-tableempty {
+    margin: 0;
+    padding: 14px;
+    border: 1px dashed var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-formactions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.local-ceduanalytics .cea-formactions-left {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.local-ceduanalytics .cea-inline-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Definition list */
+.local-ceduanalytics .cea-dl {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 16px;
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-dl dt {
+    color: var(--cea-muted);
+    font-weight: 400;
+}
+
+.local-ceduanalytics .cea-dl dd {
+    margin: 0;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Tabs */
+.local-ceduanalytics .cea-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--cea-border);
+    overflow-x: auto;
+}
+
+.local-ceduanalytics .cea-tab {
+    padding: 10px 16px;
+    border-bottom: 3px solid transparent;
+    color: var(--cea-muted);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-tab:hover {
+    color: var(--cea-navy);
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-tab.is-active {
+    border-bottom-color: var(--cea-green);
+    color: var(--cea-navy);
+}
+
+/* Course lines */
+.local-ceduanalytics .cea-lines {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+}
+
+.local-ceduanalytics .cea-line {
+    padding: 14px 16px;
+    border: 1px solid var(--cea-border);
+    border-left: 4px solid var(--cea-green);
+    border-radius: var(--cea-radius-sm);
+    background: #fcfdff;
+}
+
+.local-ceduanalytics .cea-line-track {
+    border-left-color: var(--cea-blue);
+}
+
+.local-ceduanalytics .cea-line-model {
+    border-left-color: var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-line-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.local-ceduanalytics .cea-line-head h3 {
+    margin: 0;
+    color: var(--cea-navy);
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-editions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-editions a {
+    display: flex;
+    flex-direction: column;
+    min-width: 96px;
+    padding: 8px 10px;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-surface);
+    color: var(--cea-text);
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-editions a:hover {
+    border-color: var(--cea-navy-600);
+}
+
+.local-ceduanalytics .cea-edition-label {
+    color: var(--cea-navy);
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-edition-meta,
+.local-ceduanalytics .cea-edition-date {
+    color: var(--cea-muted);
+    font-size: .75rem;
+}
+
+.local-ceduanalytics .cea-edition-hidden {
+    margin-top: 2px;
+    color: #a35f00;
+    font-size: .7rem;
+    font-weight: 600;
+}
+
+/* Empty state */
+.local-ceduanalytics .cea-empty {
+    max-width: 640px;
+    margin: 24px auto;
+    padding: 32px 24px;
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-empty-large {
+    margin-top: 48px;
+    background: var(--cea-surface);
+    border: 1px dashed #c9d2df;
+    border-radius: var(--cea-radius);
+}
+
+.local-ceduanalytics .cea-empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cea-navy-050), var(--cea-green-050));
+    color: var(--cea-navy);
+    font-size: 1.8rem;
+}
+
+.local-ceduanalytics .cea-empty-title {
+    margin: 0 0 8px;
+    color: var(--cea-navy);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-empty-text {
+    margin: 0;
+    color: var(--cea-text);
+}
+
+.local-ceduanalytics .cea-empty-note {
+    margin: 12px 0 0;
+    color: var(--cea-muted);
+    font-size: .85rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1199.98px) {
+    .local-ceduanalytics .cea-grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .local-ceduanalytics .cea-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        box-shadow: 0 0 40px rgba(16, 24, 40, .2);
+    }
+
+    .local-ceduanalytics.is-open .cea-sidebar {
+        transform: translateX(0);
+    }
+
+    .local-ceduanalytics.is-open .cea-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1035;
+        background: rgba(16, 24, 40, .45);
+    }
+
+    .local-ceduanalytics .cea-iconbtn.cea-sidebar-close,
+    .local-ceduanalytics .cea-iconbtn.cea-menubtn {
+        display: inline-flex;
+    }
+
+    .local-ceduanalytics .cea-topbar,
+    .local-ceduanalytics .cea-pagehead,
+    .local-ceduanalytics .cea-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .local-ceduanalytics .cea-user-name,
+    .local-ceduanalytics .cea-search kbd {
+        display: none;
+    }
+
+    .local-ceduanalytics .cea-field-wide {
+        grid-column: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .local-ceduanalytics * {
+        transition: none !important; /* stylelint-disable-line declaration-no-important */
+    }
+}
+
+/* ---------- Print ---------- */
+@media print {
+    .local-ceduanalytics .cea-sidebar,
+    .local-ceduanalytics .cea-topbar,
+    .local-ceduanalytics .cea-actions,
+    .local-ceduanalytics .cea-filterpanel,
+    .local-ceduanalytics .cea-tabs,
+    .local-ceduanalytics form {
+        display: none !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    .local-ceduanalytics.cea-app,
+    body.local-ceduanalytics-body {
+        background: #fff;
+    }
+
+    .local-ceduanalytics .cea-card,
+    .local-ceduanalytics .cea-stat {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .local-ceduanalytics .cea-tablewrap,
+    .local-ceduanalytics .cea-scroll {
+        overflow: visible;
+        max-height: none;
+    }
+}
+
+/* ======================= Phase 2 components ======================= */
+
+.local-ceduanalytics .cea-compare {
+    margin: 0 0 12px;
+    color: var(--cea-muted);
+    font-size: .82rem;
+}
+
+/* KPI tiles */
+.local-ceduanalytics .cea-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.local-ceduanalytics .cea-kpi {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 118px;
+    padding: 14px 16px 12px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+    box-shadow: var(--cea-shadow);
+    overflow: hidden;
+}
+
+.local-ceduanalytics .cea-kpi-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.local-ceduanalytics .cea-kpi-label {
+    color: var(--cea-muted);
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-info {
+    color: #a0aab8;
+    font-size: .8rem;
+    cursor: help;
+}
+
+.local-ceduanalytics .cea-info:hover,
+.local-ceduanalytics .cea-info:focus {
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-kpi-body {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.local-ceduanalytics .cea-kpi-value {
+    color: var(--cea-navy);
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+}
+
+.local-ceduanalytics a.cea-kpi-value:hover {
+    color: var(--cea-navy-600);
+    text-decoration: underline;
+}
+
+.local-ceduanalytics .cea-delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: .74rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-delta.is-good {
+    background: var(--cea-green-050);
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-delta.is-bad {
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-delta.cea-delta-flat {
+    background: #eef1f5;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-kpi-note {
+    color: var(--cea-muted);
+    font-size: .76rem;
+}
+
+.local-ceduanalytics .cea-lowconf {
+    color: #a35f00;
+    font-size: .72rem;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-spark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    opacity: .9;
+    pointer-events: none;
+}
+
+.local-ceduanalytics .cea-kpi-active,
+.local-ceduanalytics .cea-kpi-newenrol,
+.local-ceduanalytics .cea-kpi-part_active,
+.local-ceduanalytics .cea-kpi-part_hours {
+    padding-bottom: 36px;
+}
+
+/* Layout */
+.local-ceduanalytics .cea-grid-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: 20px;
+}
+
+.local-ceduanalytics .cea-grid-main > .cea-card {
+    margin-bottom: 20px;
+}
+
+.local-ceduanalytics .cea-chart {
+    position: relative;
+    min-height: 260px;
+}
+
+.local-ceduanalytics .cea-chart-sm {
+    max-width: 260px;
+    min-height: 0;
+    margin: 0 auto;
+}
+
+/* Attention list */
+.local-ceduanalytics .cea-attention {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-att {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: var(--cea-radius-sm);
+    font-size: .875rem;
+}
+
+.local-ceduanalytics .cea-att + .cea-att {
+    margin-top: 4px;
+}
+
+.local-ceduanalytics .cea-att .fa-solid {
+    margin-top: 3px;
+}
+
+.local-ceduanalytics .cea-att a {
+    color: inherit;
+}
+
+.local-ceduanalytics .cea-att-warn {
+    background: var(--cea-orange-050);
+    color: #6b3d00;
+}
+
+.local-ceduanalytics .cea-att-warn .fa-solid {
+    color: var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-att-danger {
+    background: var(--cea-red-050);
+    color: #7a1414;
+}
+
+.local-ceduanalytics .cea-att-danger .fa-solid {
+    color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-att-info {
+    background: var(--cea-blue-050);
+    color: #0b3a5f;
+}
+
+.local-ceduanalytics .cea-att-info .fa-solid {
+    color: var(--cea-blue);
+}
+
+.local-ceduanalytics .cea-att-ok {
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-att-ok .fa-solid {
+    color: var(--cea-green);
+}
+
+/* Bars */
+.local-ceduanalytics .cea-bars {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-bar {
+    display: grid;
+    grid-template-columns: minmax(120px, 1.2fr) 2fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: .85rem;
+}
+
+.local-ceduanalytics .cea-bar-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-bar-track {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #eef1f5;
+}
+
+.local-ceduanalytics .cea-bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cea-navy), var(--cea-blue));
+}
+
+.local-ceduanalytics .cea-bar.is-muted .cea-bar-fill {
+    background: #a0aab8;
+}
+
+.local-ceduanalytics .cea-bar-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-bar-value small {
+    color: var(--cea-muted);
+    font-weight: 400;
+}
+
+.local-ceduanalytics .cea-stats-links .cea-stat {
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-stats-links .cea-stat:hover {
+    border-color: var(--cea-navy-600);
+}
+
+/* Situation chips and badges */
+.local-ceduanalytics .cea-sitchips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.local-ceduanalytics .cea-sitchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid var(--cea-border);
+    border-radius: 999px;
+    background: var(--cea-surface);
+    color: var(--cea-text);
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-sitchip:hover {
+    border-color: var(--cea-navy-600);
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-sitchip.is-active {
+    background: var(--cea-navy);
+    border-color: var(--cea-navy);
+    color: #fff;
+}
+
+.local-ceduanalytics .cea-sitchip-count {
+    padding: 0 7px;
+    border-radius: 999px;
+    background: rgba(6, 46, 107, .08);
+    font-variant-numeric: tabular-nums;
+}
+
+.local-ceduanalytics .cea-sitchip.is-active .cea-sitchip-count {
+    background: rgba(255, 255, 255, .2);
+}
+
+.local-ceduanalytics .cea-sithelp {
+    margin: 0 0 12px;
+}
+
+.local-ceduanalytics .cea-sit-ontrack {
+    background: var(--cea-green-050);
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-sit-attention {
+    background: var(--cea-orange-050);
+    color: #a35f00;
+}
+
+.local-ceduanalytics .cea-sit-inactive {
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-sit-notstarted {
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+
+.local-ceduanalytics .cea-sit-ended {
+    background: #eef1f5;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-sit-completed {
+    background: var(--cea-blue-050);
+    color: #0068b3;
+}
+
+.local-ceduanalytics .cea-sit-certified {
+    background: var(--cea-navy);
+    color: #fff;
+}
+
+.local-ceduanalytics .cea-inferred {
+    color: var(--cea-orange);
+    font-weight: 700;
+    cursor: help;
+}
+
+/* Toolbar */
+.local-ceduanalytics .cea-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.local-ceduanalytics .cea-segmented {
+    display: inline-flex;
+    padding: 3px;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-segmented a {
+    padding: 5px 12px;
+    border-radius: 6px;
+    color: var(--cea-muted);
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-segmented a.is-active {
+    background: var(--cea-surface);
+    color: var(--cea-navy);
+    box-shadow: var(--cea-shadow);
+}
+
+.local-ceduanalytics .cea-tablesearch {
+    position: relative;
+    margin: 0 0 0 auto;
+}
+
+.local-ceduanalytics .cea-tablesearch .fa-solid {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: var(--cea-muted);
+    font-size: .8rem;
+}
+
+.local-ceduanalytics .cea-tablesearch input {
+    min-width: 240px;
+    padding-left: 30px;
+    border-radius: 999px;
+}
+
+.local-ceduanalytics .cea-progress {
+    display: inline-block;
+    width: 56px;
+    height: 6px;
+    margin-right: 4px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #eef1f5;
+    vertical-align: middle;
+}
+
+.local-ceduanalytics .cea-progress-fill {
+    display: block;
+    height: 100%;
+    background: var(--cea-green);
+}
+
+/* Student profile */
+.local-ceduanalytics .cea-profile-main {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 16px;
+}
+
+.local-ceduanalytics .cea-profile-pic img {
+    width: 84px;
+    height: 84px;
+    margin: 0;
+    border-radius: 50%;
+}
+
+.local-ceduanalytics .cea-profile-id h2 {
+    margin: 0;
+    color: var(--cea-navy);
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.local-ceduanalytics .cea-profile-id p {
+    margin: 2px 0 8px;
+}
+
+.local-ceduanalytics .cea-profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.local-ceduanalytics .cea-dl-grid {
+    grid-template-columns: minmax(150px, auto) minmax(0, 1fr) minmax(150px, auto) minmax(0, 1fr);
+}
+
+.local-ceduanalytics .cea-dl-grid dd {
+    text-align: left;
+}
+
+/* Heatmap */
+.local-ceduanalytics .cea-heatwrap {
+    border: 0;
+}
+
+.local-ceduanalytics .cea-heatmap {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 3px;
+    font-size: .72rem;
+}
+
+.local-ceduanalytics .cea-heatmap th {
+    color: var(--cea-muted);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-heatmap td {
+    min-width: 10px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.local-ceduanalytics .cea-heat-0 {
+    background: #eef1f5;
+}
+
+.local-ceduanalytics .cea-heat-1 {
+    background: #ffecd1;
+}
+
+.local-ceduanalytics .cea-heat-2 {
+    background: #ffd391;
+}
+
+.local-ceduanalytics .cea-heat-3 {
+    background: #fdb440;
+}
+
+.local-ceduanalytics .cea-heat-4 {
+    background: #fb9a00;
+}
+
+.local-ceduanalytics .cea-heat-5 {
+    background: #b86e00;
+}
+
+.local-ceduanalytics .cea-heatlegend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+    color: var(--cea-muted);
+    font-size: .75rem;
+}
+
+.local-ceduanalytics .cea-heatlegend i {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+/* Global search */
+.local-ceduanalytics .cea-search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    z-index: 1060;
+    max-height: 420px;
+    margin: 0;
+    padding: 6px;
+    overflow-y: auto;
+    list-style: none;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+    box-shadow: 0 16px 40px rgba(16, 24, 40, .16);
+}
+
+.local-ceduanalytics .cea-search-results a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: var(--cea-radius-sm);
+    color: var(--cea-text);
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-search-results li.is-active a,
+.local-ceduanalytics .cea-search-results a:hover {
+    background: var(--cea-navy-050);
+}
+
+.local-ceduanalytics .cea-search-results .fa-solid {
+    width: 18px;
+    color: var(--cea-navy-600);
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-search-text {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-search-text strong,
+.local-ceduanalytics .cea-search-text small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.local-ceduanalytics .cea-search-text small {
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-search-msg {
+    padding: 10px;
+    color: var(--cea-muted);
+}
+
+/* Saved views */
+.local-ceduanalytics .cea-views {
+    width: 320px;
+    padding: 10px;
+}
+
+.local-ceduanalytics .cea-views ul {
+    margin: 0 0 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-views li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.local-ceduanalytics .cea-views li a {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+.local-ceduanalytics .cea-views li a small {
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-views li.is-current a {
+    background: var(--cea-navy-050);
+}
+
+.local-ceduanalytics .cea-views-save {
+    display: flex;
+    gap: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-iconbtn.cea-iconbtn-sm {
+    width: 30px;
+    height: 30px;
+    font-size: .85rem;
+}
+
+.local-ceduanalytics .cea-notifications .alert {
+    border-radius: var(--cea-radius);
+}
+
+@media (max-width: 1199.98px) {
+    .local-ceduanalytics .cea-grid-main {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .local-ceduanalytics .cea-dl-grid {
+        grid-template-columns: minmax(130px, auto) minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .local-ceduanalytics .cea-tablesearch {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .local-ceduanalytics .cea-tablesearch input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .local-ceduanalytics .cea-views {
+        width: 320px;
+        max-width: 90vw;
+    }
+}
+
+@media print {
+    .local-ceduanalytics .cea-search,
+    .local-ceduanalytics .cea-toolbar,
+    .local-ceduanalytics .cea-sitchips {
+        display: none !important; /* stylelint-disable-line declaration-no-important */
+    }
+}
+
+.local-ceduanalytics .cea-table td:first-child {
+    min-width: 160px;
+}
+
+/* ======================= Phase 3 components ======================= */
+
+/* Health and status badges */
+.local-ceduanalytics .cea-health-good {
+    background: var(--cea-green-050);
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-health-attention {
+    background: var(--cea-orange-050);
+    color: #a35f00;
+}
+
+.local-ceduanalytics .cea-health-critical {
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-health-na {
+    background: #eef1f5;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-cstatus-running {
+    background: var(--cea-blue-050);
+    color: #0068b3;
+}
+
+.local-ceduanalytics .cea-cstatus-noend {
+    background: #e9f0ff;
+    color: var(--cea-navy-600);
+}
+
+.local-ceduanalytics .cea-cstatus-future {
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+
+.local-ceduanalytics .cea-cstatus-ended {
+    background: #eef1f5;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-badge-video {
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-stat-health-good::after {
+    background: var(--cea-green);
+}
+
+.local-ceduanalytics .cea-stat-health-attention::after {
+    background: var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-stat-health-critical::after {
+    background: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-stat-health-na::after {
+    background: #a0aab8;
+}
+
+.local-ceduanalytics .cea-reasons {
+    margin: 0;
+    padding-left: 16px;
+    font-size: .8rem;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-reasons li {
+    min-width: 200px;
+}
+
+.local-ceduanalytics .cea-reasons-inline {
+    margin: 8px 0;
+    padding-left: 18px;
+    font-size: .875rem;
+}
+
+.local-ceduanalytics .cea-stopped {
+    display: inline-block;
+    min-width: 26px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+    font-weight: 700;
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-table tr.cea-row-note td {
+    background: #fbfcfe;
+    font-style: italic;
+}
+
+.local-ceduanalytics .cea-table tr.cea-row-current td {
+    background: var(--cea-navy-050);
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-scroll-tall {
+    max-height: 640px;
+}
+
+/* Course header */
+.local-ceduanalytics .cea-coursehead-main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.local-ceduanalytics .cea-coursehead-meta {
+    margin: 0 0 6px;
+}
+
+.local-ceduanalytics .cea-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.local-ceduanalytics .cea-coursehead .cea-profile-links {
+    max-width: 520px;
+    justify-content: flex-end;
+}
+
+/* Funnel */
+.local-ceduanalytics .cea-funnel {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-funnel-stage {
+    display: grid;
+    grid-template-columns: minmax(130px, 1fr) 2fr auto;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 6px 0;
+    font-size: .875rem;
+}
+
+.local-ceduanalytics .cea-funnel-track {
+    height: 22px;
+    border-radius: 6px;
+    background: #eef1f5;
+    overflow: hidden;
+}
+
+.local-ceduanalytics .cea-funnel-fill {
+    display: block;
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--cea-navy), var(--cea-blue));
+}
+
+.local-ceduanalytics .cea-funnel-stage:last-child .cea-funnel-fill {
+    background: linear-gradient(90deg, var(--cea-green-700), var(--cea-green));
+}
+
+.local-ceduanalytics .cea-funnel-value {
+    min-width: 92px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.local-ceduanalytics .cea-funnel-value small {
+    color: var(--cea-muted);
+    font-weight: 400;
+}
+
+.local-ceduanalytics .cea-funnel-loss {
+    grid-column: 2;
+    color: var(--cea-red);
+    font-size: .72rem;
+    font-weight: 600;
+}
+
+/* ---------- Phase 4: support queue and teaching team ---------- */
+.local-ceduanalytics .cea-chiprow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+    margin-bottom: .5rem;
+}
+
+.local-ceduanalytics .cea-chiprow-label {
+    min-width: 7.5rem;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-chiprow .cea-sitchips {
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-selectall {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-sel {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.local-ceduanalytics .cea-badge.cea-level-high,
+.local-ceduanalytics .cea-sitchip-lvl-high.is-active {
+    background: var(--cea-red-050);
+    color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-badge.cea-level-medium {
+    background: var(--cea-orange-050);
+    color: #8a5300;
+}
+
+.local-ceduanalytics .cea-badge.cea-level-low {
+    background: var(--cea-blue-050);
+    color: #005a99;
+}
+
+.local-ceduanalytics .cea-badge.cea-reason {
+    background: var(--cea-navy-050);
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-badge.cea-fstatus-open {
+    background: #f2f4f7;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-badge.cea-fstatus-contacted {
+    background: var(--cea-blue-050);
+    color: #005a99;
+}
+
+.local-ceduanalytics .cea-badge.cea-fstatus-resolved {
+    background: var(--cea-green-050);
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-badge.cea-fstatus-dismissed {
+    background: #f2f4f7;
+    color: var(--cea-muted);
+    text-decoration: line-through;
+}
+
+.local-ceduanalytics .cea-table tr.cea-row-high td:first-child {
+    box-shadow: inset 3px 0 0 var(--cea-red);
+}
+
+.local-ceduanalytics .cea-support-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 1.25rem;
+}
+
+.local-ceduanalytics .cea-support-grid fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    min-width: 0;
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+}
+
+.local-ceduanalytics .cea-support-grid legend {
+    width: auto;
+    margin: 0;
+    padding: 0 .4rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-support-grid label {
+    margin: .4rem 0 0;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-support-grid .btn {
+    margin-top: .75rem;
+}
+
+.local-ceduanalytics .cea-radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.local-ceduanalytics .cea-radios label {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-preview {
+    border: 2px solid var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-preview-samples {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.local-ceduanalytics .cea-preview-sample {
+    margin: 0;
+    padding: .75rem 1rem;
+    background: var(--cea-bg);
+    border-radius: var(--cea-radius-sm);
+}
+
+.local-ceduanalytics .cea-preview-sample figcaption {
+    margin-bottom: .4rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-preview-text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.local-ceduanalytics .cea-preview-recipients {
+    margin: 1rem 0;
+}
+
+.local-ceduanalytics .cea-preview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.local-ceduanalytics .cea-teamcards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1rem;
+}
+
+.local-ceduanalytics .cea-teamcard {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1rem;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+    background: var(--cea-surface);
+}
+
+.local-ceduanalytics .cea-teamcard.is-stale {
+    border-left: 4px solid var(--cea-orange);
+}
+
+.local-ceduanalytics .cea-teamcard h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-teamcard header p,
+.local-ceduanalytics .cea-teamcard footer {
+    margin: 0;
+    font-size: .85rem;
+}
+
+.local-ceduanalytics .cea-teamcard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .5rem;
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-teamcard-stats > div {
+    padding: .4rem .5rem;
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-teamcard-stats dt {
+    font-size: .72rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-teamcard-stats dd {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-teamcard-stats > div.is-alert {
+    background: var(--cea-red-050);
+}
+
+.local-ceduanalytics .cea-teamcard-stats > div.is-alert dd {
+    color: var(--cea-red);
+}
+
+@media (max-width: 991.98px) {
+    .local-ceduanalytics .cea-support-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Charts inside grids: grid items default to min-width: auto, so a canvas drawn wide once never
+   shrinks and overflows into the next card. Let the items shrink and keep the canvas in its box. */
+.local-ceduanalytics .cea-grid-2 > *,
+.local-ceduanalytics .cea-grid-main > *,
+.local-ceduanalytics .cea-card {
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-chart {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.local-ceduanalytics .cea-chart canvas {
+    max-width: 100%;
+}
+
+/* Moodle core sizes .chart-image as 80vw × 48vh, which ignores the card width beside the side menu. */
+.local-ceduanalytics .cea-chart .chart-image {
+    width: 100%;
+    max-width: 100%;
+    height: 320px;
+}
+
+/* ---------- Phase 5: map, audience and feedback ---------- */
+.local-ceduanalytics .cea-card-head-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.local-ceduanalytics .cea-subhead {
+    margin: 20px 0 10px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-table tr.cea-row-muted td {
+    color: var(--cea-muted);
+    font-style: italic;
+}
+
+.local-ceduanalytics .cea-table tr.cea-row-total td {
+    font-weight: 700;
+    background: var(--cea-navy-050);
+}
+
+.local-ceduanalytics .cea-heatcell {
+    display: inline-block;
+    min-width: 2.2rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-map {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.local-ceduanalytics .cea-map-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.local-ceduanalytics .cea-tile rect {
+    fill: var(--cea-tile, #eef1f6);
+    stroke: #fff;
+    stroke-width: 2;
+    transition: opacity .15s;
+}
+
+.local-ceduanalytics .cea-tile:hover rect,
+.local-ceduanalytics .cea-tile:focus rect {
+    opacity: .8;
+    stroke: var(--cea-orange);
+    stroke-width: 3;
+}
+
+.local-ceduanalytics .cea-tile text {
+    fill: var(--cea-text);
+    pointer-events: none;
+}
+
+.local-ceduanalytics .cea-tile.is-dark text {
+    fill: #fff;
+}
+
+.local-ceduanalytics .cea-tile-uf {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-tile-value {
+    font-size: 12px;
+}
+
+.local-ceduanalytics .cea-tile-l0 {
+    --cea-tile: #eef1f6;
+}
+.local-ceduanalytics .cea-tile-l1 {
+    --cea-tile: #cfdcef;
+}
+.local-ceduanalytics .cea-tile-l2 {
+    --cea-tile: #9db7dd;
+}
+.local-ceduanalytics .cea-tile-l3 {
+    --cea-tile: #5c86c2;
+}
+.local-ceduanalytics .cea-tile-l4 {
+    --cea-tile: #2a5aa0;
+}
+.local-ceduanalytics .cea-tile-l5 {
+    --cea-tile: #062e6b;
+}
+
+.local-ceduanalytics .cea-map-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin: 10px 0 6px;
+    font-size: .8rem;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-legend-swatch {
+    display: inline-block;
+    width: 22px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--cea-tile);
+}
+
+.local-ceduanalytics .cea-fbgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 0 20px;
+}
+
+.local-ceduanalytics .cea-fbq h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.local-ceduanalytics .cea-fbq-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: var(--cea-navy);
+    color: #fff;
+    font-size: .8rem;
+}
+
+.local-ceduanalytics .cea-fbq.is-split {
+    border-color: var(--cea-orange);
+}
+
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-fbgrid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Map of Brazil over the IBGE mesh (replaces the tile cartogram). */
+.local-ceduanalytics .cea-map {
+    max-width: 640px;
+}
+
+.local-ceduanalytics .cea-state path {
+    fill: var(--cea-tile, #eef1f6);
+    stroke: #fff;
+    stroke-width: 1;
+    stroke-linejoin: round;
+    transition: opacity .15s;
+}
+
+.local-ceduanalytics .cea-state:hover path,
+.local-ceduanalytics .cea-state:focus path {
+    stroke: var(--cea-orange);
+    stroke-width: 2.5;
+    opacity: .85;
+}
+
+.local-ceduanalytics .cea-state:focus {
+    outline: none;
+}
+
+.local-ceduanalytics .cea-map-labels text {
+    fill: var(--cea-text);
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: rgba(255, 255, 255, .7);
+    stroke-width: 2px;
+}
+
+.local-ceduanalytics .cea-map-labels text.is-dark {
+    fill: #fff;
+    stroke: rgba(6, 46, 107, .5);
+}
+
+.local-ceduanalytics .cea-map-uf {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-map-value {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.local-ceduanalytics .cea-callout {
+    stroke: var(--cea-muted);
+    stroke-width: .8;
+}
+
+/* ---------- Phase 6: security checks, report centre and bulletin ---------- */
+.local-ceduanalytics .cea-checks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-check {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: start;
+    padding: 12px 14px;
+    border-left: 4px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+    margin-bottom: 8px;
+}
+
+.local-ceduanalytics .cea-check > i {
+    margin-top: 3px;
+    font-size: 1.1rem;
+}
+
+.local-ceduanalytics .cea-check p {
+    margin: 4px 0 0;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-check-critical {
+    border-left-color: var(--cea-red);
+    background: var(--cea-red-050);
+}
+.local-ceduanalytics .cea-check-critical > i {
+    color: var(--cea-red);
+}
+.local-ceduanalytics .cea-check-warning {
+    border-left-color: var(--cea-orange);
+    background: var(--cea-orange-050);
+}
+.local-ceduanalytics .cea-check-warning > i {
+    color: #b86e00;
+}
+.local-ceduanalytics .cea-check-info {
+    border-left-color: var(--cea-blue);
+    background: var(--cea-blue-050);
+}
+.local-ceduanalytics .cea-check-info > i {
+    color: #005a99;
+}
+.local-ceduanalytics .cea-check-ok {
+    border-left-color: var(--cea-green);
+}
+.local-ceduanalytics .cea-check-ok > i {
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-check-badge {
+    background: #fff;
+}
+
+.local-ceduanalytics .cea-bulletin-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-left: 4px solid var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-bulletin-cta h2 {
+    margin: 0 0 4px;
+    font-size: 1.15rem;
+}
+
+.local-ceduanalytics .cea-bulletin-cta p {
+    margin: 0;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-catalogue {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.local-ceduanalytics .cea-catalogue-group h3 {
+    margin: 0 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--cea-border);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.local-ceduanalytics .cea-catalogue-page {
+    margin-bottom: 12px;
+}
+
+.local-ceduanalytics .cea-catalogue-title {
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-catalogue-page ul {
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-catalogue-page li {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 0 4px 22px;
+    border-bottom: 1px dashed var(--cea-border);
+    font-size: .9rem;
+}
+
+.local-ceduanalytics .cea-catalogue-links a {
+    margin-left: 8px;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-bulletin-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.local-ceduanalytics .cea-bulletin {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 36px;
+    background: var(--cea-surface);
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius);
+}
+
+.local-ceduanalytics .cea-bulletin-head {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-bulletin-logo {
+    max-height: 64px;
+}
+
+.local-ceduanalytics .cea-bulletin-head h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-bulletin-head p {
+    margin: 2px 0 0;
+}
+
+.local-ceduanalytics .cea-bulletin-kicker {
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-bulletin-numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.local-ceduanalytics .cea-bulletin-number {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px;
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-bulletin-number strong {
+    font-size: 1.6rem;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-bulletin-label {
+    font-size: .8rem;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-bulletin-section {
+    margin-bottom: 20px;
+    break-inside: avoid;
+}
+
+.local-ceduanalytics .cea-bulletin-section h3 {
+    margin: 0 0 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-bulletin-foot {
+    margin-top: 24px;
+    font-size: .8rem;
+    text-align: right;
+}
+
+@media print {
+    .local-ceduanalytics .cea-bulletin-actions,
+    .local-ceduanalytics .cea-check .btn {
+        display: none !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    .local-ceduanalytics .cea-bulletin {
+        border: 0;
+        padding: 0;
+        max-width: none;
+    }
+}
+
+/* Map outlines and leader lines in black (requested 2026-11-19). */
+.local-ceduanalytics .cea-state path {
+    stroke: #000;
+    stroke-width: .8;
+}
+
+.local-ceduanalytics .cea-callout {
+    stroke: #000;
+    stroke-width: .8;
+}
+
+/* ---------- Phase 7: alerts ---------- */
+.local-ceduanalytics .cea-check-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+@media (max-width: 767.98px) {
+    .local-ceduanalytics .cea-check {
+        grid-template-columns: 24px minmax(0, 1fr);
+    }
+
+    .local-ceduanalytics .cea-check-actions {
+        grid-column: 2;
+        justify-content: flex-start;
+    }
+}
+
+/* ---------- About ---------- */
+.local-ceduanalytics .cea-about-hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+}
+
+.local-ceduanalytics .cea-about-logo {
+    max-width: 220px;
+    max-height: 110px;
+}
+
+.local-ceduanalytics .cea-about-hero > div {
+    flex: 1 1 360px;
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-about-hero h2 {
+    margin: 0 0 6px;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-about-lead {
+    font-size: 1.05rem;
+}
+
+.local-ceduanalytics .cea-about-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.local-ceduanalytics .cea-about-toc a {
+    padding: 6px 12px;
+    border: 1px solid var(--cea-border);
+    border-radius: 999px;
+    background: var(--cea-surface);
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+.local-ceduanalytics .cea-about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+.local-ceduanalytics .cea-about-item {
+    padding: 12px 14px;
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-about-item h3,
+.local-ceduanalytics .cea-about-item h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-about-item p {
+    margin: 0 0 4px;
+}
+
+.local-ceduanalytics .cea-about-list li {
+    margin-bottom: 6px;
+}
+
+.local-ceduanalytics .cea-glossary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 0 24px;
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-glossary > div {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-glossary dt {
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-glossary dd {
+    margin: 2px 0 0;
+    color: var(--cea-muted);
+}
+
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-glossary,
+    .local-ceduanalytics .cea-about-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ---------- Phase 10: tables ---------- */
+/* One scroll container per table (both directions), so the header stays fixed and the border never scrolls away. */
+.local-ceduanalytics .cea-tablewrap {
+    max-height: 560px;
+    overflow: auto;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-surface);
+}
+
+.local-ceduanalytics .cea-scroll,
+.local-ceduanalytics .cea-scroll-tall {
+    max-height: none;
+    overflow: visible;
+}
+
+.local-ceduanalytics .cea-scroll .cea-tablewrap {
+    max-height: 420px;
+}
+
+.local-ceduanalytics .cea-scroll-tall .cea-tablewrap {
+    max-height: 640px;
+}
+
+.local-ceduanalytics .cea-table th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: inset 0 -1px 0 var(--cea-border);
+}
+
+.local-ceduanalytics .cea-table td {
+    min-width: 90px;
+}
+
+.local-ceduanalytics .cea-table td:first-child {
+    min-width: 200px;
+}
+
+.local-ceduanalytics .cea-email {
+    color: var(--cea-muted);
+    font-size: .76rem;
+    word-break: break-all;
+}
+
+.local-ceduanalytics .cea-table td.cea-merged {
+    vertical-align: top;
+    border-right: 1px solid #eef1f5;
+    background: var(--cea-surface);
+}
+
+.local-ceduanalytics .cea-table th:not(:has(.cea-sort)) {
+    padding: 10px 12px;
+}
+
+@media print {
+    .local-ceduanalytics .cea-tablewrap {
+        max-height: none;
+        overflow: visible;
+    }
+}
+
+/* G14: narrower side menu (no counters in the menu any more). */
+.local-ceduanalytics {
+    --cea-sidebar: 272px;
+}
+
+/* G7: the Filters button is highlighted while the filter panel is open. */
+.local-ceduanalytics .btn.cea-btn-ghost[data-action="cea-filters"][aria-expanded="true"] {
+    background: var(--cea-green-050);
+    border-color: var(--cea-green);
+    color: var(--cea-green-700);
+}
+
+/* G9: initials of a user without picture, in a circle like the pictures. */
+.local-ceduanalytics .cea-user .userinitials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    border-radius: 50%;
+    background: var(--cea-navy-050);
+    color: var(--cea-navy);
+    font-size: .8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* M2: bar labels wrap instead of being cut on narrow screens. */
+.local-ceduanalytics .cea-bar-label {
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.25;
+}
+
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-bar {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .local-ceduanalytics .cea-bar-track {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+}
+
+.local-ceduanalytics .cea-fbtexts {
+    max-height: 320px;
+    margin: 8px 0 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+}
+
+.local-ceduanalytics .cea-fbtexts li {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eef1f5;
+    white-space: pre-wrap;
+}
+
+.local-ceduanalytics .cea-fbtexts li:last-child {
+    border-bottom: 0;
+}
+
+/* ---------- Agenda ---------- */
+.local-ceduanalytics .cea-agenda-month {
+    margin: 20px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--cea-border);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-agenda {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-agenda-item {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--cea-border);
+}
+
+.local-ceduanalytics .cea-agenda-item.is-past {
+    opacity: .65;
+}
+
+.local-ceduanalytics .cea-agenda-item.is-today .cea-agenda-date {
+    background: var(--cea-green-050);
+    border-color: var(--cea-green);
+}
+
+.local-ceduanalytics .cea-agenda-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-agenda-date strong {
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-agenda-date span {
+    font-size: .72rem;
+    text-transform: uppercase;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-agenda-body h4 {
+    margin: 4px 0 2px;
+    font-size: .98rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-agenda-body p {
+    margin: 0;
+    font-size: .85rem;
+}
+
+/* R2: report centre as masonry columns, without empty gaps. */
+.local-ceduanalytics .cea-catalogue {
+    display: block;
+    column-width: 280px;
+    column-gap: 16px;
+}
+
+.local-ceduanalytics .cea-catalogue-page {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 14px 16px;
+    break-inside: avoid;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-surface);
+}
+
+.local-ceduanalytics .cea-catalogue-group {
+    margin: 0 0 2px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-catalogue-page h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-catalogue-page ul {
+    margin: 0 0 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-catalogue-page li {
+    display: block;
+    padding: 3px 0;
+    border: 0;
+    font-size: .88rem;
+    color: var(--cea-text);
+}
+
+.local-ceduanalytics .cea-catalogue-page li .fa-file-lines {
+    margin-right: 4px;
+    color: var(--cea-muted);
+}
+
+/* S1: About, stacked layout (logo and description side by side, information in blocks). */
+.local-ceduanalytics .cea-about-hero {
+    display: block;
+}
+
+.local-ceduanalytics .cea-about-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 28px;
+    margin-bottom: 16px;
+}
+
+.local-ceduanalytics .cea-about-top .cea-about-logo {
+    flex: 0 0 auto;
+    max-width: 240px;
+    max-height: 90px;
+}
+
+.local-ceduanalytics .cea-about-top .cea-about-lead {
+    flex: 1 1 320px;
+    min-width: 0;
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-about-info p {
+    display: block;
+    margin: 0 0 6px;
+    overflow-wrap: anywhere;
+}
+
+.local-ceduanalytics .cea-about-stack {
+    display: block;
+}
+
+.local-ceduanalytics .cea-about-stack .cea-about-item {
+    margin-bottom: 12px;
+}
+
+.local-ceduanalytics .cea-about-lines {
+    margin: 6px 0 0;
+    padding-left: 18px;
+}
+
+.local-ceduanalytics .cea-about-lines li {
+    margin-bottom: 4px;
+}
+
+/* Fase 11: textos para leitor de tela (posição absoluta) ficam dentro da área de rolagem da tabela. */
+.local-ceduanalytics .cea-tablewrap {
+    position: relative;
+}
+
+/* Fase 11: sumário executivo em telas estreitas. */
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-bulletin {
+        padding: 16px;
+    }
+
+    .local-ceduanalytics .cea-bulletin-head {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .local-ceduanalytics .cea-bulletin-head > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .local-ceduanalytics .cea-bulletin-head h2 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Fase 11: nome e e-mail longos no perfil do estudante em telas estreitas. */
+.local-ceduanalytics .cea-profile-id {
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-profile-id h2,
+.local-ceduanalytics .cea-profile-id p {
+    overflow-wrap: anywhere;
+}
+
+/* Fase 11: grades com colunas mínimas largas viram uma coluna em telas estreitas. */
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-lines,
+    .local-ceduanalytics .cea-preview-samples,
+    .local-ceduanalytics .cea-teamcards,
+    .local-ceduanalytics .cea-fbgrid,
+    .local-ceduanalytics .cea-about-grid,
+    .local-ceduanalytics .cea-glossary {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Fase 11: a busca encolhe para caber com o menu e as iniciais em telas de 320 px. */
+.local-ceduanalytics .cea-search {
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-topbar > * {
+    flex-shrink: 0;
+}
+
+.local-ceduanalytics .cea-topbar > .cea-search {
+    flex-shrink: 1;
+}
+
+/* Fase 11: lista de dados do perfil e funil em telas de até 575 px. */
+.local-ceduanalytics .cea-dl-grid dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-dl-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .local-ceduanalytics .cea-funnel-stage {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .local-ceduanalytics .cea-funnel-label {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .local-ceduanalytics .cea-funnel-value {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .local-ceduanalytics .cea-funnel-track {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .local-ceduanalytics .cea-funnel-loss {
+        grid-column: 1 / -1;
+        grid-row: 3;
+    }
+}
+
+/* Fase 11: verificações (Segurança e desempenho, Alertas) e seletor segmentado em telas de até 575 px. */
+.local-ceduanalytics .cea-check > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 575.98px) {
+    .local-ceduanalytics .cea-check {
+        grid-template-columns: 24px minmax(0, 1fr);
+    }
+
+    .local-ceduanalytics .cea-check > :nth-child(n+3) {
+        grid-column: 2;
+    }
+
+    .local-ceduanalytics .cea-check-actions {
+        justify-content: flex-start;
+    }
+
+    .local-ceduanalytics .cea-segmented {
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+}
+
+/* ---------- Fase 12: Agenda em grade mensal ---------- */
+.local-ceduanalytics .cea-agcal-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.local-ceduanalytics .cea-agcal-nav .cea-agenda-month {
+    min-width: 170px;
+    margin: 0;
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-agcal-count {
+    margin-left: auto;
+    font-size: .85rem;
+}
+
+.local-ceduanalytics .cea-agcal {
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    overflow: hidden;
+}
+
+.local-ceduanalytics .cea-agcal-head,
+.local-ceduanalytics .cea-agcal-week {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.local-ceduanalytics .cea-agcal-head div {
+    padding: 8px;
+    background: var(--cea-navy-050);
+    color: var(--cea-navy);
+    font-size: .8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.local-ceduanalytics .cea-agcal-head abbr {
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-agcal-day {
+    min-height: 112px;
+    padding: 6px;
+    border-top: 1px solid var(--cea-border);
+    border-left: 1px solid var(--cea-border);
+    background: var(--cea-surface);
+}
+
+.local-ceduanalytics .cea-agcal-day:first-child {
+    border-left: 0;
+}
+
+.local-ceduanalytics .cea-agcal-day.is-out {
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-agcal-day.is-out .cea-agcal-num {
+    color: #a3adbd;
+}
+
+.local-ceduanalytics .cea-agcal-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    height: 26px;
+    margin-bottom: 4px;
+    border-radius: 13px;
+    color: var(--cea-text);
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-agcal-day.is-today .cea-agcal-num {
+    background: var(--cea-navy);
+    color: #fff;
+}
+
+.local-ceduanalytics .cea-agcal-day ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.local-ceduanalytics .cea-agcal-ev {
+    margin-bottom: 3px;
+    padding: 2px 6px;
+    overflow: hidden;
+    border-left: 3px solid var(--cea-navy);
+    border-radius: 4px;
+    background: var(--cea-navy-050);
+    font-size: .75rem;
+    line-height: 1.35;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.local-ceduanalytics .cea-agcal-ev a {
+    color: inherit;
+}
+
+.local-ceduanalytics .cea-agcal-day.is-past .cea-agcal-ev {
+    opacity: .7;
+}
+
+.local-ceduanalytics .cea-agcal-more summary {
+    color: var(--cea-navy-600);
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Cores por tipo (paleta do logotipo). */
+.local-ceduanalytics .cea-agk-activity {
+    border-left-color: var(--cea-blue);
+    background: var(--cea-blue-050);
+}
+
+.local-ceduanalytics .cea-agk-coursestart {
+    border-left-color: var(--cea-green);
+    background: var(--cea-green-050);
+}
+
+.local-ceduanalytics .cea-agk-courseend,
+.local-ceduanalytics .cea-agk-enrolend {
+    border-left-color: var(--cea-orange);
+    background: var(--cea-orange-050);
+}
+
+.local-ceduanalytics .cea-agk-site,
+.local-ceduanalytics .cea-agk-category {
+    border-left-color: var(--cea-navy);
+    background: var(--cea-navy-050);
+}
+
+.local-ceduanalytics .cea-agk-course,
+.local-ceduanalytics .cea-agk-group {
+    border-left-color: var(--cea-green-700);
+    background: var(--cea-green-050);
+}
+
+.local-ceduanalytics .cea-agk-user {
+    border-left-color: var(--cea-muted);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-agcal-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--cea-muted);
+    font-size: .8rem;
+}
+
+.local-ceduanalytics .cea-agcal-swatch {
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    margin-right: 6px;
+    border-left-style: solid;
+    border-left-width: 6px;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+/* Telas estreitas: lista dos dias que têm datas. */
+@media (max-width: 767.98px) {
+    .local-ceduanalytics .cea-agcal-head {
+        display: none;
+    }
+
+    .local-ceduanalytics .cea-agcal-week {
+        display: block;
+    }
+
+    .local-ceduanalytics .cea-agcal-day {
+        display: grid;
+        grid-template-columns: 110px minmax(0, 1fr);
+        gap: 8px;
+        min-height: 0;
+        padding: 10px 8px;
+        border-left: 0;
+    }
+
+    .local-ceduanalytics .cea-agcal-day.is-empty,
+    .local-ceduanalytics .cea-agcal-day.is-out {
+        display: none;
+    }
+
+    .local-ceduanalytics .cea-agcal-num .sr-only {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+
+    .local-ceduanalytics .cea-agcal-num [aria-hidden="true"] {
+        display: none;
+    }
+
+    .local-ceduanalytics .cea-agcal-num {
+        justify-content: flex-start;
+    }
+
+    .local-ceduanalytics .cea-agcal-day.is-today .cea-agcal-num {
+        padding: 0 8px;
+    }
+
+    .local-ceduanalytics .cea-agcal-ev {
+        white-space: normal;
+    }
+
+    .local-ceduanalytics .cea-agcal-count {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Fase 12: barras horizontais com as cores do logotipo. */
+.local-ceduanalytics .cea-bars-green .cea-bar-fill {
+    background: linear-gradient(90deg, var(--cea-green-700), var(--cea-green));
+}
+
+.local-ceduanalytics .cea-bars-orange .cea-bar-fill {
+    background: linear-gradient(90deg, #d98500, var(--cea-orange));
+}
+
+.local-ceduanalytics .cea-bars-blue .cea-bar-fill {
+    background: linear-gradient(90deg, #0077cc, var(--cea-blue));
+}
+
+/* Fase 12: grupos de filtros em botões (Inatividade, Feedback): nome numa linha, botões na linha seguinte. */
+.local-ceduanalytics .cea-chiprow {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.local-ceduanalytics .cea-chiprow-label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Fase 12: marcadores da mensagem (Inatividade). */
+.local-ceduanalytics .cea-placeholders {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border: 1px solid var(--cea-border);
+    border-radius: var(--cea-radius-sm);
+    background: var(--cea-bg);
+}
+
+.local-ceduanalytics .cea-placeholders h3 {
+    margin: 0 0 4px;
+    color: var(--cea-navy);
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-placeholders dl {
+    margin: 8px 0 0;
+}
+
+.local-ceduanalytics .cea-placeholders dl > div {
+    padding: 6px 0;
+    border-top: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-placeholders dt {
+    font-weight: 400;
+}
+
+.local-ceduanalytics .cea-placeholders dd {
+    margin: 0;
+    font-size: .85rem;
+}
+
+/* Fase 12: tabela "Plugins do Moodle" dentro do alerta, com a cor do alerta. */
+.local-ceduanalytics .cea-plugintable-wrap {
+    max-height: 520px;
+    margin-top: 10px;
+    border-color: rgba(16, 24, 40, .12);
+    background: transparent;
+}
+
+.local-ceduanalytics .cea-plugintable th,
+.local-ceduanalytics .cea-plugintable td {
+    border-color: rgba(16, 24, 40, .1);
+    background: transparent;
+    font-size: .82rem;
+    vertical-align: top;
+}
+
+.local-ceduanalytics .cea-check-warning .cea-plugintable th {
+    background: #ffe7bf;
+}
+
+.local-ceduanalytics .cea-check-ok .cea-plugintable th,
+.local-ceduanalytics .cea-check-info .cea-plugintable th {
+    background: var(--cea-navy-050);
+}
+
+.local-ceduanalytics .cea-pluginstate {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-pluginstate.is-bad {
+    background: var(--cea-red);
+    color: #fff;
+}
+
+.local-ceduanalytics .cea-pluginstate.is-good {
+    background: var(--cea-green-050);
+    color: var(--cea-green-700);
+}
+
+.local-ceduanalytics .cea-check > .cea-plugintable-wrap {
+    grid-column: 1 / -1;
+}
+
+.local-ceduanalytics .cea-plugintable {
+    min-width: 720px;
+}
+
+.local-ceduanalytics .cea-plugintable th:nth-child(1) {
+    width: 22%;
+}
+
+.local-ceduanalytics .cea-plugintable th:nth-child(2) {
+    width: 38%;
+}
+
+.local-ceduanalytics .cea-plugintable th:nth-child(3),
+.local-ceduanalytics .cea-plugintable th:nth-child(4) {
+    width: 20%;
+}
+
+/* Fase 12: explicação do processamento (Configurações > Processamento de dados). */
+.local-ceduanalytics .cea-formactions-left {
+    margin-top: 18px;
+}
+
+.local-ceduanalytics .cea-processinfo {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-processinfo h3 {
+    margin: 0 0 10px;
+    color: var(--cea-navy);
+    font-size: .95rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-processinfo dl {
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-processinfo dt {
+    margin-top: 10px;
+    color: var(--cea-text);
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-processinfo dt:first-child {
+    margin-top: 0;
+}
+
+.local-ceduanalytics .cea-processinfo dd {
+    margin: 2px 0 0;
+    color: var(--cea-muted);
+    font-size: .85rem;
+    line-height: 1.5;
+}
+
+/* Fase 12: títulos com endereços longos quebram a linha na Agenda. */
+.local-ceduanalytics .cea-agenda-body {
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-agenda-body h4,
+.local-ceduanalytics .cea-agenda-body p,
+.local-ceduanalytics .cea-agcal-ev {
+    overflow-wrap: anywhere;
+}
+
+/* Fase 14: no menu lateral do celular, o logotipo não fica sob o botão de fechar. */
+@media (max-width: 991.98px) {
+    .local-ceduanalytics .cea-sidebar-top {
+        padding-right: 56px;
+        padding-left: 20px;
+    }
+}
+
+/* ---------- Fase 15 ---------- */
+/* F15.1: tabelas com contorno, cabeçalho e linhas um pouco mais fortes; cabeçalho em azul-escuro. */
+.local-ceduanalytics .cea-tablewrap {
+    border-color: #c9d3e2;
+}
+
+.local-ceduanalytics .cea-table th {
+    background: #e8eef7;
+    color: var(--cea-navy);
+    box-shadow: inset 0 -1px 0 #c9d3e2;
+}
+
+.local-ceduanalytics .cea-table th .cea-sort,
+.local-ceduanalytics .cea-table th .fa-solid,
+.local-ceduanalytics .cea-table th a,
+.local-ceduanalytics .cea-table th button {
+    color: var(--cea-navy);
+}
+
+.local-ceduanalytics .cea-sort .fa-solid {
+    opacity: .55;
+}
+
+.local-ceduanalytics .cea-table td {
+    border-bottom-color: #dfe5ee;
+}
+
+.local-ceduanalytics .cea-table td.cea-merged {
+    border-right-color: #dfe5ee;
+}
+
+/* F15.2: selos com borda da cor do texto; selos de texto branco usam a cor do fundo. */
+.local-ceduanalytics .cea-badge,
+.local-ceduanalytics .cea-pluginstate {
+    border: 1px solid currentColor;
+}
+
+.local-ceduanalytics .cea-pluginstate.is-bad {
+    border-color: var(--cea-red);
+}
+
+.local-ceduanalytics .cea-badge.cea-sit-certified {
+    border-color: var(--cea-navy);
+}
+
+/* F15.11: o painel de filtros abre pelo link mesmo antes de o JavaScript da página carregar. */
+/* Only until the page script runs (it sets data-cea-init and takes over the button). Bootstrap hides [hidden]
+   with !important, so the link target needs it too. */
+.local-ceduanalytics.cea-app:not([data-cea-init]) .cea-filterpanel[hidden]:target {
+    display: block !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.local-ceduanalytics a.cea-btn-ghost[data-action="cea-filters"] {
+    text-decoration: none;
+}
+
+/* F15.8: Web × aplicativo com o total e o que são as interações. */
+.local-ceduanalytics .cea-deviceinfo {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--cea-border);
+}
+
+.local-ceduanalytics .cea-deviceinfo-total {
+    margin: 0 0 10px;
+    color: var(--cea-muted);
+}
+
+.local-ceduanalytics .cea-deviceinfo-total strong {
+    color: var(--cea-navy);
+    font-size: 1.35rem;
+}
+
+.local-ceduanalytics .cea-deviceinfo dl {
+    margin: 0;
+}
+
+.local-ceduanalytics .cea-deviceinfo dt {
+    margin-top: 10px;
+    color: var(--cea-text);
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.local-ceduanalytics .cea-deviceinfo dd {
+    margin: 2px 0 0;
+    color: var(--cea-muted);
+    font-size: .85rem;
+    line-height: 1.5;
+}
+
+/* F15.6: estudante que também é docente (e vice-versa). */
+.local-ceduanalytics .cea-dual {
+    display: inline-block;
+    margin-left: 4px;
+    color: var(--cea-red);
+    font-size: .85em;
+    line-height: 1;
+    vertical-align: baseline;
+    cursor: help;
+}
+
+.local-ceduanalytics .cea-dual .fa-solid {
+    color: var(--cea-red);
+}
+
+/* F15.9: Agir nos casos selecionados: cada quadro ocupa a largura toda, com o formulário e a explicação lado a lado. */
+.local-ceduanalytics .cea-support-grid {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.local-ceduanalytics .cea-support-split {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.local-ceduanalytics .cea-support-fields {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-support-split > .cea-placeholders {
+    margin-top: 0;
+}
+
+.local-ceduanalytics .cea-support-split .cea-placeholders dt {
+    font-weight: 700;
+}
+
+@media (max-width: 991.98px) {
+    .local-ceduanalytics .cea-support-split {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* F15.14: busca da tabela na mesma faixa do título do bloco. */
+.local-ceduanalytics .cea-card-head-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px 20px;
+}
+
+.local-ceduanalytics .cea-card-head-text {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.local-ceduanalytics .cea-card-head-tools .cea-tablesearch {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+@media (max-width: 991.98px) {
+    .local-ceduanalytics .cea-card-head-tools .cea-tablesearch {
+        flex: 1 1 100%;
+    }
+}
+
+/* F15.16: a pergunta de região do Feedback diz por que tem contorno laranja. */
+.local-ceduanalytics .cea-fbq-split {
+    margin: 6px 0 0;
+}
+
+.local-ceduanalytics .cea-badge-split {
+    background: var(--cea-orange-050);
+    color: #a35f00;
+}
+
+/* F15.17: mapa do Brasil em tons de verde (UF sem dados continua cinza). */
+.local-ceduanalytics .cea-tile-l1 {
+    --cea-tile: #e3f4d5;
+}
+
+.local-ceduanalytics .cea-tile-l2 {
+    --cea-tile: #bde3a0;
+}
+
+.local-ceduanalytics .cea-tile-l3 {
+    --cea-tile: #82c653;
+}
+
+.local-ceduanalytics .cea-tile-l4 {
+    --cea-tile: #3f8f0e;
+}
+
+.local-ceduanalytics .cea-tile-l5 {
+    --cea-tile: #1f5a00;
+}
+
+/* F15.19: Central de relatórios: contorno dos blocos mais forte e botões de baixar em azul-escuro. */
+.local-ceduanalytics .cea-catalogue-page {
+    border-color: #c9d3e2;
+}
+
+.local-ceduanalytics .cea-btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--cea-navy);
+    background: var(--cea-navy);
+    color: #fff;
+    text-decoration: none;
+}
+
+.local-ceduanalytics .cea-btn-download .fa-solid {
+    color: #fff;
+}
+
+.local-ceduanalytics .cea-btn-download:hover,
+.local-ceduanalytics .cea-btn-download:focus {
+    border-color: var(--cea-navy-600);
+    background: var(--cea-navy-600);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* F15.22: plugins com o código removido do servidor ficam no fim da tabela, em cinza. */
+.local-ceduanalytics .cea-plugintable tr.cea-pluginrow-missing td {
+    color: #8a94a6;
+}
+
+.local-ceduanalytics .cea-plugintable tr.cea-pluginrow-missing td strong {
+    color: #8a94a6;
+    font-weight: 600;
+}
+
+.local-ceduanalytics .cea-pluginstate.is-missing {
+    border-color: #a7b0bf;
+    background: #eef1f5;
+    color: #6b7585;
+}
+
+/* F15.23: na faixa laranja (alerta), contorno e linhas da tabela de plugins em laranja-escuro. */
+.local-ceduanalytics .cea-check-warning .cea-plugintable-wrap {
+    border-color: #c97a00;
+}
+
+.local-ceduanalytics .cea-check-warning .cea-plugintable th {
+    box-shadow: inset 0 -1px 0 #c97a00;
+}
+
+.local-ceduanalytics .cea-check-warning .cea-plugintable td {
+    border-bottom-color: rgba(201, 122, 0, .55);
+}
+
+/* F15.24 caution notice: green, to set it apart from the alert cards below. */
+.local-ceduanalytics .cea-caution {
+    background: var(--cea-green-050);
+    border-color: #a8d98a;
+    color: #1f4d00;
+}
+
+.local-ceduanalytics .cea-caution > .fa-solid {
+    color: var(--cea-green-700);
+}

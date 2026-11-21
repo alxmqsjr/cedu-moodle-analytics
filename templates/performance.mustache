@@ -1,0 +1,86 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/performance
+
+    Performance tab of "Security and performance": optimisations by group and the largest database tables.
+
+    Example context (json):
+    {"tabs": [], "kpis": [], "purgeurl": "#",
+     "groups": [{"name": "Cache", "help": "", "items": [{"severity": "warning", "severitylabel": "Atenção",
+        "icon": "fa-triangle-exclamation", "title": "Cache de strings", "text": "Desligado", "url": "#"}]}],
+     "tables": {"hasrows": false, "id": "dbtables"} }
+}}
+{{> local_ceduanalytics/tabs }}
+{{> local_ceduanalytics/caution }}
+
+<p class="cea-compare"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{#str}} perf_intro, local_ceduanalytics {{/str}}</p>
+{{> local_ceduanalytics/kpis }}
+
+{{#groups}}
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{name}}</h2>
+            <p>{{help}}</p>
+        </header>
+        <ul class="cea-checks">
+            {{#items}}
+                <li class="cea-check cea-check-{{severity}}">
+                    <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+                    <div>
+                        <strong>{{title}}</strong> <span class="cea-badge cea-check-badge">{{severitylabel}}</span>
+                        <p>{{text}}</p>
+                    </div>
+                    {{#url}}<a class="btn cea-btn-ghost btn-sm" href="{{url}}">{{#str}} sec_fix, local_ceduanalytics {{/str}} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>{{/url}}
+                    {{#hasplugins}}
+                        <div class="cea-tablewrap cea-plugintable-wrap">
+                            <table class="cea-table cea-plugintable">
+                                <caption class="sr-only">{{title}}</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{{#str}} col_plugin, local_ceduanalytics {{/str}}</th>
+                                        <th scope="col">{{#str}} col_description, local_ceduanalytics {{/str}}</th>
+                                        <th scope="col">{{#str}} col_usage, local_ceduanalytics {{/str}}</th>
+                                        <th scope="col">{{#str}} col_update, local_ceduanalytics {{/str}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#plugins}}
+                                        <tr{{#ismissing}} class="cea-pluginrow-missing"{{/ismissing}}>
+                                            <td><strong>{{plugin}}</strong><br><span class="cea-email">{{component}}{{#release}} · {{release}}{{/release}}</span></td>
+                                            <td>{{description}}</td>
+                                            <td><span class="cea-pluginstate{{#usagebad}} is-bad{{/usagebad}}{{^usagebad}}{{#ismissing}} is-missing{{/ismissing}}{{^ismissing}} is-good{{/ismissing}}{{/usagebad}}">{{usage}}</span></td>
+                                            <td><span class="cea-pluginstate{{#updatebad}} is-bad{{/updatebad}}">{{update}}</span></td>
+                                        </tr>
+                                    {{/plugins}}
+                                </tbody>
+                            </table>
+                        </div>
+                    {{/hasplugins}}
+                </li>
+            {{/items}}
+        </ul>
+    </section>
+{{/groups}}
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} perf_tables, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} perf_tables_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    {{#tables}}{{> local_ceduanalytics/table }}{{/tables}}
+</section>

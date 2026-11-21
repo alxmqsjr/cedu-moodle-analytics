@@ -1,0 +1,121 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/config_data
+
+    Configuration: data processing status.
+
+    Example context (json):
+    {"stats": [], "watermark": "1", "maxid": "2", "lastaggregation": "x", "lastsnapshot": "x", "lastattributes": "x",
+     "lastbackfill": "x", "queued": false, "tasks": [], "tables": [], "coverage": {"hasrows": false},
+     "formaction": "#", "sesskey": "x"}
+}}
+<div class="cea-alert cea-alert-info">
+    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+    <div><p>{{#str}} cfg_data_howitworks, local_ceduanalytics {{/str}}</p></div>
+</div>
+{{#queued}}
+    <div class="cea-alert cea-alert-warn" role="status">
+        <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
+        <div><p>{{#str}} cfg_data_queued, local_ceduanalytics {{/str}}</p></div>
+    </div>
+{{/queued}}
+
+{{> local_ceduanalytics/stats }}
+
+<div class="cea-grid-2">
+    <section class="cea-card">
+        <header class="cea-card-head"><h2>{{#str}} cfg_data_status, local_ceduanalytics {{/str}}</h2></header>
+        <dl class="cea-dl">
+            <dt>{{#str}} cfg_data_watermark, local_ceduanalytics {{/str}}</dt><dd>{{watermark}} / {{maxid}}</dd>
+            <dt>{{#str}} cfg_data_lastaggregation, local_ceduanalytics {{/str}}</dt><dd>{{lastaggregation}}</dd>
+            <dt>{{#str}} cfg_data_lastsnapshot, local_ceduanalytics {{/str}}</dt><dd>{{lastsnapshot}}</dd>
+            <dt>{{#str}} cfg_data_lastattributes, local_ceduanalytics {{/str}}</dt><dd>{{lastattributes}}</dd>
+            <dt>{{#str}} cfg_data_lastbackfill, local_ceduanalytics {{/str}}</dt><dd>{{lastbackfill}}</dd>
+        </dl>
+        <div class="cea-formactions cea-formactions-left">
+            <form method="post" action="{{formaction}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="process">
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-rotate" aria-hidden="true"></i> {{#str}} cfg_process, local_ceduanalytics {{/str}}</button>
+            </form>
+            <form method="post" action="{{formaction}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="backfill">
+                <button type="submit" class="btn cea-btn-ghost" data-confirm="{{#str}} cfg_backfill_confirm, local_ceduanalytics {{/str}}">{{#str}} cfg_backfill, local_ceduanalytics {{/str}}</button>
+            </form>
+        </div>
+        <div class="cea-processinfo">
+            <h3>{{#str}} cfg_process_what, local_ceduanalytics {{/str}}</h3>
+            <dl>
+                <dt>{{#str}} cfg_process, local_ceduanalytics {{/str}}</dt>
+                <dd>{{#str}} cfg_process_now_help, local_ceduanalytics {{/str}}</dd>
+                <dt>{{#str}} cfg_backfill, local_ceduanalytics {{/str}}</dt>
+                <dd>{{#str}} cfg_backfill_help, local_ceduanalytics {{/str}}</dd>
+                <dt>{{#str}} cfg_process_needed, local_ceduanalytics {{/str}}</dt>
+                <dd>{{#str}} cfg_process_needed_help, local_ceduanalytics {{/str}}</dd>
+            </dl>
+        </div>
+    </section>
+
+    <section class="cea-card">
+        <header class="cea-card-head"><h2>{{#str}} cfg_data_coverage, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} cfg_data_coverage_help, local_ceduanalytics {{/str}}</p></header>
+        {{#coverage}}{{> local_ceduanalytics/table }}{{/coverage}}
+    </section>
+</div>
+
+<div class="cea-grid-2">
+    <section class="cea-card">
+        <header class="cea-card-head"><h2>{{#str}} cfg_data_tasks, local_ceduanalytics {{/str}}</h2></header>
+        <div class="cea-tablewrap">
+            <table class="cea-table">
+                <thead><tr>
+                    <th scope="col">{{#str}} cfg_data_task, local_ceduanalytics {{/str}}</th>
+                    <th scope="col">{{#str}} cfg_data_lastrun, local_ceduanalytics {{/str}}</th>
+                    <th scope="col">{{#str}} cfg_data_nextrun, local_ceduanalytics {{/str}}</th>
+                </tr></thead>
+                <tbody>
+                    {{#tasks}}
+                        <tr>
+                            <td>{{name}}
+                                {{#failing}}<span class="cea-badge cea-badge-danger">{{#str}} cfg_data_failing, local_ceduanalytics {{/str}}</span>{{/failing}}
+                                {{#disabled}}<span class="cea-badge cea-badge-soft">{{#str}} cfg_data_disabled, local_ceduanalytics {{/str}}</span>{{/disabled}}
+                            </td>
+                            <td>{{last}}</td>
+                            <td>{{next}}</td>
+                        </tr>
+                    {{/tasks}}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="cea-card">
+        <header class="cea-card-head"><h2>{{#str}} cfg_data_tables, local_ceduanalytics {{/str}}</h2></header>
+        <div class="cea-tablewrap">
+            <table class="cea-table">
+                <thead><tr>
+                    <th scope="col">{{#str}} cfg_data_table, local_ceduanalytics {{/str}}</th>
+                    <th scope="col" class="cea-num">{{#str}} cfg_data_rows, local_ceduanalytics {{/str}}</th>
+                </tr></thead>
+                <tbody>
+                    {{#tables}}<tr><td>{{name}} <code>{{table}}</code></td><td class="cea-num">{{rows}}</td></tr>{{/tables}}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

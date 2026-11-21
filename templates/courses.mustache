@@ -1,0 +1,47 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/courses
+
+    All courses page.
+
+    Example context (json):
+    {"stats": [], "healthstats": [], "table": {"hasrows": false, "id": "courses"} }
+}}
+<p class="cea-compare"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{#str}} courses_intro, local_ceduanalytics {{/str}}</p>
+{{> local_ceduanalytics/stats }}
+<div class="cea-stats cea-stats-health">
+    {{#healthstats}}
+        <div class="cea-stat cea-stat-{{type}}"><span class="cea-stat-value">{{value}}</span><span class="cea-stat-label">{{label}}</span></div>
+    {{/healthstats}}
+</div>
+
+<section class="cea-card">
+    <header class="cea-card-head cea-card-head-tools">
+        <div class="cea-card-head-text">
+            <h2>{{#str}} page_courses, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} courses_help, local_ceduanalytics {{/str}}</p>
+        </div>
+        <label class="cea-tablesearch">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">{{#str}} table_filter, local_ceduanalytics {{/str}}</span>
+            <input type="search" class="form-control" data-region="cea-tablefilter" data-target="cea-table-courses"
+                   placeholder="{{#str}} table_filter, local_ceduanalytics {{/str}}">
+        </label>
+    </header>
+    {{#table}}{{> local_ceduanalytics/table }}{{/table}}
+</section>

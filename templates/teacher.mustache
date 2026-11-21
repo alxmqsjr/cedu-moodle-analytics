@@ -1,0 +1,81 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/teacher
+
+    Teacher profile.
+
+    Example context (json):
+    {"kpis": [], "name": "Ana", "dualmark": "", "email": "a@example.com", "roles": "Professor", "suspended": false, "lastaccess": "",
+     "profileurl": "#", "backurl": "#", "chart": "", "haschart": false, "chartempty": "",
+     "courses": {"hasrows": false, "id": "courses"}, "contacts": {"hasrows": false, "id": "contacts"},
+     "unanswered": {"hasrows": false, "id": "unanswered"}, "grading": {"hasrows": false, "id": "grading"} }
+}}
+<section class="cea-card cea-profile">
+    <div class="cea-profile-main">
+        <div class="cea-profile-id">
+            <h2>{{name}}{{{dualmark}}} {{#suspended}}<span class="cea-badge cea-badge-danger">{{#str}} suspended, core {{/str}}</span>{{/suspended}}</h2>
+            <p class="cea-muted"><i class="fa-regular fa-envelope" aria-hidden="true"></i> {{email}} · {{roles}}</p>
+            <p class="cea-muted"><i class="fa-regular fa-clock" aria-hidden="true"></i> {{#str}} st_lastaccess, local_ceduanalytics {{/str}}: {{lastaccess}}</p>
+            <div class="cea-profile-links">
+                <a class="btn cea-btn-ghost btn-sm" href="{{backurl}}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {{#str}} page_team, local_ceduanalytics {{/str}}</a>
+                <a class="btn cea-btn-ghost btn-sm" href="{{profileurl}}"><i class="fa-regular fa-user" aria-hidden="true"></i> {{#str}} moodleprofile, local_ceduanalytics {{/str}}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{> local_ceduanalytics/kpis }}
+
+<div class="cea-grid-main">
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} teacher_chart, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} teacher_chart_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        {{#haschart}}<div class="cea-chart">{{{chart}}}</div>{{/haschart}}
+        {{^haschart}}{{{chartempty}}}{{/haschart}}
+    </section>
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} team_unanswered, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} team_unanswered_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        <div class="cea-scroll">{{#unanswered}}{{> local_ceduanalytics/table }}{{/unanswered}}</div>
+    </section>
+</div>
+
+<section class="cea-card">
+    <header class="cea-card-head"><h2>{{#str}} teacher_courses, local_ceduanalytics {{/str}}</h2></header>
+    {{#courses}}{{> local_ceduanalytics/table }}{{/courses}}
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} team_grading, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} team_grading_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    {{#grading}}{{> local_ceduanalytics/table }}{{/grading}}
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} teacher_contacts, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} teacher_contacts_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <div class="cea-scroll">{{#contacts}}{{> local_ceduanalytics/table }}{{/contacts}}</div>
+</section>

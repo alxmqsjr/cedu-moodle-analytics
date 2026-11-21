@@ -1,0 +1,76 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_ceduanalytics/audience
+
+    Audience profile: segments, results by segment, institutions, state × segment, unclassified job titles.
+
+    Example context (json):
+    {"kpis": [], "bars": {"hasbars": false}, "configurl": "#",
+     "segments": {"hasrows": false, "id": "segments"}, "institutions": {"hasrows": false, "id": "institutions"},
+     "matrix": {"hasrows": false, "id": "matrix"}, "jobtitles": {"hasrows": false, "id": "jobtitles"} }
+}}
+{{> local_ceduanalytics/kpis }}
+
+<div class="cea-grid-2">
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} aud_bysegment, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} aud_bysegment_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        {{#bars}}{{> local_ceduanalytics/bars }}{{/bars}}
+    </section>
+    <section class="cea-card">
+        <header class="cea-card-head">
+            <h2>{{#str}} aud_segments, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} aud_segments_help, local_ceduanalytics {{/str}}</p>
+        </header>
+        <div class="cea-scroll">{{#segments}}{{> local_ceduanalytics/table }}{{/segments}}</div>
+    </section>
+</div>
+
+<section class="cea-card">
+    <header class="cea-card-head cea-card-head-tools">
+        <div class="cea-card-head-text">
+            <h2>{{#str}} aud_institutions, local_ceduanalytics {{/str}}</h2>
+            <p>{{#str}} aud_institutions_help, local_ceduanalytics {{/str}}</p>
+        </div>
+        <label class="cea-tablesearch">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">{{#str}} table_filter, local_ceduanalytics {{/str}}</span>
+            <input type="search" class="form-control" data-region="cea-tablefilter" data-target="cea-table-institutions"
+                   placeholder="{{#str}} table_filter, local_ceduanalytics {{/str}}">
+        </label>
+    </header>
+    <div class="cea-scroll">{{#institutions}}{{> local_ceduanalytics/table }}{{/institutions}}</div>
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} aud_matrix, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} aud_matrix_help, local_ceduanalytics {{/str}}</p>
+    </header>
+    <div class="cea-scroll">{{#matrix}}{{> local_ceduanalytics/table }}{{/matrix}}</div>
+</section>
+
+<section class="cea-card">
+    <header class="cea-card-head">
+        <h2>{{#str}} aud_jobtitles, local_ceduanalytics {{/str}}</h2>
+        <p>{{#str}} aud_jobtitles_help, local_ceduanalytics {{/str}} <a href="{{configurl}}">{{#str}} aud_editrules, local_ceduanalytics {{/str}}</a></p>
+    </header>
+    <div class="cea-scroll">{{#jobtitles}}{{> local_ceduanalytics/table }}{{/jobtitles}}</div>
+</section>
